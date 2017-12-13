@@ -89,7 +89,6 @@ ul li img{
 .image1{
     position: relative;
     top:20%;
-    width: 60%;
 }
 .image2{
     position: relative;
@@ -98,9 +97,11 @@ ul li img{
 }
 .image3{
     position: relative;
-    top:20%;
+    top:10%;
+    left: -20%;
 }
 .image4{
     position: relative;
-    top:20%;
+    top:10%;
+    left: 20%;
 }

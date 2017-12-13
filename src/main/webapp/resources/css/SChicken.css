@@ -1,0 +1,164 @@
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+.menu{
+    height: 8%;
+    width: 100%;
+    background-color: orange;
+    border-bottom: 2px solid #6699ff;
+}
+#wrap{
+    background-image: url(../img/univers1.jpg);
+    width: 100%;
+    height: 92%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+#main{
+    width: 80%;
+    height: 80%;
+    margin: 0px auto;
+}
+ul
+{
+    list-style-type: none;
+    padding: 0px;
+    margin-left: 12.5%;
+    margin-top: 0%;
+    height: 100%;
+
+}
+ul li
+{
+    background-repeat: no-repeat;
+    float: left;
+    width: 17.5%;
+    height: 100%;
+    font-family: 微软雅黑;
+    font-size: 18px;
+    cursor:pointer;
+    display: table;
+    background:white;
+}
+ul li a{
+    display:table-cell;text-align: center;vertical-align: middle;text-decoration: none;color: #000;
+}
+ul li a:hover{
+    color: dodgerblue;
+}
+#right1{
+    margin-left: 60%;
+    height: 223px;
+    width: 30%;
+    background-color: white;
+}
+#right2{
+    margin-top: 5%;
+    height: 230px;
+    width:30%;
+    background-color: white;
+    margin-left: 60%;
+
+}
+#huanying{
+    font-family: 微软雅黑;
+    font-size: 40px;
+    position: relative;
+    top: 20%;
+    margin-left: 10%;
+    color: white;
+
+}
+input.a{
+    height: 45px;
+    width: 94%;
+    margin-left: 3%;
+    margin-top: 40px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-family: 微软雅黑;
+    text-align: left;
+    border-color: black;
+    border-width: 1px;
+
+}
+input.b{
+    height: 45px;
+    width: 94%;
+    margin-left: 3%;
+    border-radius: 8px;
+    font-size: 20px;
+    font-family: 微软雅黑;
+    text-align: left;
+    border-color: black;
+    border-width: 1px;
+}
+input.c{
+    margin-left: 10%;
+    font-family: 微软雅黑;
+}
+input.button1{
+    margin-right: 3%;
+    float: right;
+    height:54px;
+    width: 60%;
+    border-radius: 24px;
+    background-color: white;
+    border-color: #66ccff;
+    color: #66ccff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-appearance:none;
+}
+#shang{
+    height: 59px;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+#leftfont{
+    font-family: 微软雅黑;font-size: 22px;
+    float: left;padding-left: 4%;
+    padding-top: 3%;
+}
+#rightfont{
+    font-family: 微软雅黑;font-size: 20px;
+    float: right;padding-right: 5%;
+    padding-top: 4%;color: #999999;
+}
+input.e{
+    height: 45px;
+    width: 94%;
+    margin-left: 3%;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-family: 微软雅黑;
+    text-align: left;
+    border-color: black;
+    border-width: 1px;
+
+}
+input.button2{
+    margin-right: 9%;
+    margin-top: 20px;
+    float: right;
+    height:54px;
+    width: 80%;
+    border-radius: 24px;
+    background-color: #66ccff;
+    border-color: #66ccff;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-appearance:none;
+}

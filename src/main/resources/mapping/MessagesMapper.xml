@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zust.dao.MessagesMapper">
+  <resultMap id="BaseResultMap" type="zust.model.Messages">
+    <id column="messages_id" jdbcType="INTEGER" property="messagesId" />
+    <result column="messages_user_id" jdbcType="INTEGER" property="messagesUserId" />
+    <result column="messaged_user_id" jdbcType="INTEGER" property="messagedUserId" />
+    <result column="messages_info" jdbcType="VARCHAR" property="messagesInfo" />
+    <result column="messages_date" jdbcType="TIMESTAMP" property="messagesDate" />
+    <result column="messages_status" jdbcType="VARCHAR" property="messagesStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    messages_id, messages_user_id, messaged_user_id, messages_info, messages_date, messages_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from messages
+    where messages_id = #{messagesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from messages
+    where messages_id = #{messagesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="zust.model.Messages">
+    insert into messages (messages_id, messages_user_id, messaged_user_id, 
+      messages_info, messages_date, messages_status
+      )
+    values (#{messagesId,jdbcType=INTEGER}, #{messagesUserId,jdbcType=INTEGER}, #{messagedUserId,jdbcType=INTEGER}, 
+      #{messagesInfo,jdbcType=VARCHAR}, #{messagesDate,jdbcType=TIMESTAMP}, #{messagesStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="zust.model.Messages">
+    insert into messages
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messagesId != null">
+        messages_id,
+      </if>
+      <if test="messagesUserId != null">
+        messages_user_id,
+      </if>
+      <if test="messagedUserId != null">
+        messaged_user_id,
+      </if>
+      <if test="messagesInfo != null">
+        messages_info,
+      </if>
+      <if test="messagesDate != null">
+        messages_date,
+      </if>
+      <if test="messagesStatus != null">
+        messages_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messagesId != null">
+        #{messagesId,jdbcType=INTEGER},
+      </if>
+      <if test="messagesUserId != null">
+        #{messagesUserId,jdbcType=INTEGER},
+      </if>
+      <if test="messagedUserId != null">
+        #{messagedUserId,jdbcType=INTEGER},
+      </if>
+      <if test="messagesInfo != null">
+        #{messagesInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="messagesDate != null">
+        #{messagesDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messagesStatus != null">
+        #{messagesStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="zust.model.Messages">
+    update messages
+    <set>
+      <if test="messagesUserId != null">
+        messages_user_id = #{messagesUserId,jdbcType=INTEGER},
+      </if>
+      <if test="messagedUserId != null">
+        messaged_user_id = #{messagedUserId,jdbcType=INTEGER},
+      </if>
+      <if test="messagesInfo != null">
+        messages_info = #{messagesInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="messagesDate != null">
+        messages_date = #{messagesDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messagesStatus != null">
+        messages_status = #{messagesStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where messages_id = #{messagesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zust.model.Messages">
+    update messages
+    set messages_user_id = #{messagesUserId,jdbcType=INTEGER},
+      messaged_user_id = #{messagedUserId,jdbcType=INTEGER},
+      messages_info = #{messagesInfo,jdbcType=VARCHAR},
+      messages_date = #{messagesDate,jdbcType=TIMESTAMP},
+      messages_status = #{messagesStatus,jdbcType=VARCHAR}
+    where messages_id = #{messagesId,jdbcType=INTEGER}
+  </update>
+</mapper>

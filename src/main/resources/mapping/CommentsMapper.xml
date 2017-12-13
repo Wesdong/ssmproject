@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zust.dao.CommentsMapper">
+  <resultMap id="BaseResultMap" type="zust.model.Comments">
+    <id column="comments_id" jdbcType="INTEGER" property="commentsId" />
+    <result column="comments_user_id" jdbcType="INTEGER" property="commentsUserId" />
+    <result column="comments_sc_id" jdbcType="INTEGER" property="commentsScId" />
+    <result column="comments_info" jdbcType="VARCHAR" property="commentsInfo" />
+    <result column="comments_date" jdbcType="TIMESTAMP" property="commentsDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    comments_id, comments_user_id, comments_sc_id, comments_info, comments_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comments
+    where comments_id = #{commentsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comments
+    where comments_id = #{commentsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="zust.model.Comments">
+    insert into comments (comments_id, comments_user_id, comments_sc_id, 
+      comments_info, comments_date)
+    values (#{commentsId,jdbcType=INTEGER}, #{commentsUserId,jdbcType=INTEGER}, #{commentsScId,jdbcType=INTEGER}, 
+      #{commentsInfo,jdbcType=VARCHAR}, #{commentsDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="zust.model.Comments">
+    insert into comments
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commentsId != null">
+        comments_id,
+      </if>
+      <if test="commentsUserId != null">
+        comments_user_id,
+      </if>
+      <if test="commentsScId != null">
+        comments_sc_id,
+      </if>
+      <if test="commentsInfo != null">
+        comments_info,
+      </if>
+      <if test="commentsDate != null">
+        comments_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commentsId != null">
+        #{commentsId,jdbcType=INTEGER},
+      </if>
+      <if test="commentsUserId != null">
+        #{commentsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="commentsScId != null">
+        #{commentsScId,jdbcType=INTEGER},
+      </if>
+      <if test="commentsInfo != null">
+        #{commentsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="commentsDate != null">
+        #{commentsDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="zust.model.Comments">
+    update comments
+    <set>
+      <if test="commentsUserId != null">
+        comments_user_id = #{commentsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="commentsScId != null">
+        comments_sc_id = #{commentsScId,jdbcType=INTEGER},
+      </if>
+      <if test="commentsInfo != null">
+        comments_info = #{commentsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="commentsDate != null">
+        comments_date = #{commentsDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where comments_id = #{commentsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zust.model.Comments">
+    update comments
+    set comments_user_id = #{commentsUserId,jdbcType=INTEGER},
+      comments_sc_id = #{commentsScId,jdbcType=INTEGER},
+      comments_info = #{commentsInfo,jdbcType=VARCHAR},
+      comments_date = #{commentsDate,jdbcType=TIMESTAMP}
+    where comments_id = #{commentsId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zust.dao.SChickenMapper">
+  <resultMap id="BaseResultMap" type="zust.model.SChicken">
+    <id column="sc_id" jdbcType="INTEGER" property="scId" />
+    <result column="sc_user_id" jdbcType="INTEGER" property="scUserId" />
+    <result column="sc_info" jdbcType="VARCHAR" property="scInfo" />
+    <result column="sc_date" jdbcType="DATE" property="scDate" />
+    <result column="sc_like" jdbcType="INTEGER" property="scLike" />
+    <result column="sc_comments" jdbcType="INTEGER" property="scComments" />
+    <result column="sc_ifcomments" jdbcType="TINYINT" property="scIfcomments" />
+    <result column="sc_picture_id" jdbcType="INTEGER" property="scPictureId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sc_id, sc_user_id, sc_info, sc_date, sc_like, sc_comments, sc_ifcomments, sc_picture_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sc
+    where sc_id = #{scId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sc
+    where sc_id = #{scId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="zust.model.SChicken">
+    insert into sc (sc_id, sc_user_id, sc_info, 
+      sc_date, sc_like, sc_comments, 
+      sc_ifcomments, sc_picture_id)
+    values (#{scId,jdbcType=INTEGER}, #{scUserId,jdbcType=INTEGER}, #{scInfo,jdbcType=VARCHAR}, 
+      #{scDate,jdbcType=DATE}, #{scLike,jdbcType=INTEGER}, #{scComments,jdbcType=INTEGER}, 
+      #{scIfcomments,jdbcType=TINYINT}, #{scPictureId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="zust.model.SChicken">
+    insert into sc
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="scId != null">
+        sc_id,
+      </if>
+      <if test="scUserId != null">
+        sc_user_id,
+      </if>
+      <if test="scInfo != null">
+        sc_info,
+      </if>
+      <if test="scDate != null">
+        sc_date,
+      </if>
+      <if test="scLike != null">
+        sc_like,
+      </if>
+      <if test="scComments != null">
+        sc_comments,
+      </if>
+      <if test="scIfcomments != null">
+        sc_ifcomments,
+      </if>
+      <if test="scPictureId != null">
+        sc_picture_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="scId != null">
+        #{scId,jdbcType=INTEGER},
+      </if>
+      <if test="scUserId != null">
+        #{scUserId,jdbcType=INTEGER},
+      </if>
+      <if test="scInfo != null">
+        #{scInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="scDate != null">
+        #{scDate,jdbcType=DATE},
+      </if>
+      <if test="scLike != null">
+        #{scLike,jdbcType=INTEGER},
+      </if>
+      <if test="scComments != null">
+        #{scComments,jdbcType=INTEGER},
+      </if>
+      <if test="scIfcomments != null">
+        #{scIfcomments,jdbcType=TINYINT},
+      </if>
+      <if test="scPictureId != null">
+        #{scPictureId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="zust.model.SChicken">
+    update sc
+    <set>
+      <if test="scUserId != null">
+        sc_user_id = #{scUserId,jdbcType=INTEGER},
+      </if>
+      <if test="scInfo != null">
+        sc_info = #{scInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="scDate != null">
+        sc_date = #{scDate,jdbcType=DATE},
+      </if>
+      <if test="scLike != null">
+        sc_like = #{scLike,jdbcType=INTEGER},
+      </if>
+      <if test="scComments != null">
+        sc_comments = #{scComments,jdbcType=INTEGER},
+      </if>
+      <if test="scIfcomments != null">
+        sc_ifcomments = #{scIfcomments,jdbcType=TINYINT},
+      </if>
+      <if test="scPictureId != null">
+        sc_picture_id = #{scPictureId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sc_id = #{scId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zust.model.SChicken">
+    update sc
+    set sc_user_id = #{scUserId,jdbcType=INTEGER},
+      sc_info = #{scInfo,jdbcType=VARCHAR},
+      sc_date = #{scDate,jdbcType=DATE},
+      sc_like = #{scLike,jdbcType=INTEGER},
+      sc_comments = #{scComments,jdbcType=INTEGER},
+      sc_ifcomments = #{scIfcomments,jdbcType=TINYINT},
+      sc_picture_id = #{scPictureId,jdbcType=INTEGER}
+    where sc_id = #{scId,jdbcType=INTEGER}
+  </update>
+</mapper>

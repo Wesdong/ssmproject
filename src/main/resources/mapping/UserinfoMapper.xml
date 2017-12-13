@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zust.dao.UserinfoMapper">
+  <resultMap id="BaseResultMap" type="zust.model.Userinfo">
+    <id column="userinfo_id" jdbcType="INTEGER" property="userinfoId" />
+    <result column="userinfo_picurl" jdbcType="VARCHAR" property="userinfoPicurl" />
+    <result column="userinfo_vip" jdbcType="TINYINT" property="userinfoVip" />
+    <result column="userinfo_statement" jdbcType="VARCHAR" property="userinfoStatement" />
+    <result column="userinfo_birth" jdbcType="TIMESTAMP" property="userinfoBirth" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userinfo_id, userinfo_picurl, userinfo_vip, userinfo_statement, userinfo_birth
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userinfo
+    where userinfo_id = #{userinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from userinfo
+    where userinfo_id = #{userinfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="zust.model.Userinfo">
+    insert into userinfo (userinfo_id, userinfo_picurl, userinfo_vip, 
+      userinfo_statement, userinfo_birth)
+    values (#{userinfoId,jdbcType=INTEGER}, #{userinfoPicurl,jdbcType=VARCHAR}, #{userinfoVip,jdbcType=TINYINT}, 
+      #{userinfoStatement,jdbcType=VARCHAR}, #{userinfoBirth,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="zust.model.Userinfo">
+    insert into userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userinfoId != null">
+        userinfo_id,
+      </if>
+      <if test="userinfoPicurl != null">
+        userinfo_picurl,
+      </if>
+      <if test="userinfoVip != null">
+        userinfo_vip,
+      </if>
+      <if test="userinfoStatement != null">
+        userinfo_statement,
+      </if>
+      <if test="userinfoBirth != null">
+        userinfo_birth,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userinfoId != null">
+        #{userinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="userinfoPicurl != null">
+        #{userinfoPicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoVip != null">
+        #{userinfoVip,jdbcType=TINYINT},
+      </if>
+      <if test="userinfoStatement != null">
+        #{userinfoStatement,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoBirth != null">
+        #{userinfoBirth,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="zust.model.Userinfo">
+    update userinfo
+    <set>
+      <if test="userinfoPicurl != null">
+        userinfo_picurl = #{userinfoPicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoVip != null">
+        userinfo_vip = #{userinfoVip,jdbcType=TINYINT},
+      </if>
+      <if test="userinfoStatement != null">
+        userinfo_statement = #{userinfoStatement,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoBirth != null">
+        userinfo_birth = #{userinfoBirth,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where userinfo_id = #{userinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zust.model.Userinfo">
+    update userinfo
+    set userinfo_picurl = #{userinfoPicurl,jdbcType=VARCHAR},
+      userinfo_vip = #{userinfoVip,jdbcType=TINYINT},
+      userinfo_statement = #{userinfoStatement,jdbcType=VARCHAR},
+      userinfo_birth = #{userinfoBirth,jdbcType=TIMESTAMP}
+    where userinfo_id = #{userinfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

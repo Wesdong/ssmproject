@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zust.dao.VisitorMapper">
+  <resultMap id="BaseResultMap" type="zust.model.Visitor">
+    <id column="visitor_id" jdbcType="INTEGER" property="visitorId" />
+    <result column="visitor_name" jdbcType="VARCHAR" property="visitorName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    visitor_id, visitor_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from visitor
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from visitor
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="zust.model.Visitor">
+    insert into visitor (visitor_id, visitor_name)
+    values (#{visitorId,jdbcType=INTEGER}, #{visitorName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="zust.model.Visitor">
+    insert into visitor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="visitorId != null">
+        visitor_id,
+      </if>
+      <if test="visitorName != null">
+        visitor_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="visitorId != null">
+        #{visitorId,jdbcType=INTEGER},
+      </if>
+      <if test="visitorName != null">
+        #{visitorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="zust.model.Visitor">
+    update visitor
+    <set>
+      <if test="visitorName != null">
+        visitor_name = #{visitorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zust.model.Visitor">
+    update visitor
+    set visitor_name = #{visitorName,jdbcType=VARCHAR}
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </update>
+</mapper>

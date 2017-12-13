@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zust.dao.PictureMapper">
+  <resultMap id="BaseResultMap" type="zust.model.Picture">
+    <id column="picture_id" jdbcType="INTEGER" property="pictureId" />
+    <result column="picture_user_id" jdbcType="INTEGER" property="pictureUserId" />
+    <result column="picture_url" jdbcType="VARCHAR" property="pictureUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    picture_id, picture_user_id, picture_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from picture
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from picture
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="zust.model.Picture">
+    insert into picture (picture_id, picture_user_id, picture_url
+      )
+    values (#{pictureId,jdbcType=INTEGER}, #{pictureUserId,jdbcType=INTEGER}, #{pictureUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="zust.model.Picture">
+    insert into picture
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pictureId != null">
+        picture_id,
+      </if>
+      <if test="pictureUserId != null">
+        picture_user_id,
+      </if>
+      <if test="pictureUrl != null">
+        picture_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pictureId != null">
+        #{pictureId,jdbcType=INTEGER},
+      </if>
+      <if test="pictureUserId != null">
+        #{pictureUserId,jdbcType=INTEGER},
+      </if>
+      <if test="pictureUrl != null">
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="zust.model.Picture">
+    update picture
+    <set>
+      <if test="pictureUserId != null">
+        picture_user_id = #{pictureUserId,jdbcType=INTEGER},
+      </if>
+      <if test="pictureUrl != null">
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zust.model.Picture">
+    update picture
+    set picture_user_id = #{pictureUserId,jdbcType=INTEGER},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR}
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </update>
+</mapper>

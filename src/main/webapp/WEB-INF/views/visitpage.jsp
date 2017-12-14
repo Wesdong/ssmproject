@@ -23,9 +23,8 @@
         </form>
     </div>
     <div>
-        <c:forEach var="sc" items="${sclist}">
-            <img src="<c:out value=""/>">
-            <p><c:out value=""/></p>
+        <c:forEach var="sc" items="${sclist.list}">
+            <p><c:out value="${sc.scInfo}"/></p>
         </c:forEach>
     </div>
 </body>

@@ -1,15 +1,13 @@
 package zust.controller;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import zust.model.PageInfo;
 import zust.model.SChicken;
 import zust.model.User;
-import zust.model.Userinfo;
 import zust.service.SchickenService;
 import zust.service.UserService;
 import zust.service.UserinfoService;
@@ -47,7 +45,6 @@ public class MainController {
     public ModelAndView signupController(User user,String gender){
         ModelAndView mav = new ModelAndView("signup");
         user.setUserGender(gender);
-        Userinfo userinfo = new Userinfo();
         System.out.println(user.getUserId());
         userService.insertUser(user);
         mav.addObject("user",user);
@@ -55,13 +52,11 @@ public class MainController {
         return mav;
     }
 
-    @ResponseBody
     @RequestMapping(value = "/visit.do",method = RequestMethod.GET)
     public ModelAndView visitController(){
         ModelAndView mav = new ModelAndView("visitpage");
         PageInfo<SChicken> sclist = schickenService.selectByTime(0,5);
-        mav.addObject("sc",sclist);
+        mav.addObject("sclist",sclist);
         return mav;
     }
-
 }

@@ -22,7 +22,7 @@
   </select>
   <select id="selectByTime" parameterType="zust.model.SChicken" resultMap="BaseResultMap">
     select
-    <include refid="Base_Colum_List"/>
+    <include refid="Base_Column_List"/>
     from sc
     ORDER BY sc_date DESC
   </select>

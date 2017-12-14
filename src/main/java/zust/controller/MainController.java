@@ -10,6 +10,7 @@ import zust.model.PageInfo;
 import zust.model.SChicken;
 import zust.model.User;
 import zust.model.Userinfo;
+import zust.service.SchickenService;
 import zust.service.UserService;
 import zust.service.UserinfoService;
 
@@ -17,6 +18,9 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    SchickenService schickenService;
 
     @Autowired
     UserinfoService userinfoService;
@@ -53,10 +57,11 @@ public class MainController {
 
     @ResponseBody
     @RequestMapping(value = "/visit.do",method = RequestMethod.GET)
-    public PageInfo<SChicken> visitController(){
+    public ModelAndView visitController(){
         ModelAndView mav = new ModelAndView("visitpage");
-        mav.addObject("sc");
-        return null;
+        PageInfo<SChicken> sclist = schickenService.selectByTime(0,5);
+        mav.addObject("sc",sclist);
+        return mav;
     }
 
 }

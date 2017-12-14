@@ -55,8 +55,8 @@ public class MainController {
     @RequestMapping(value = "/visit.do",method = RequestMethod.GET)
     public PageInfo<SChicken> visitController(){
         ModelAndView mav = new ModelAndView("visitpage");
-        mav.addObject("sc",sclist);
-        return sclist;
+        mav.addObject("sc");
+        return null;
     }
 
 }

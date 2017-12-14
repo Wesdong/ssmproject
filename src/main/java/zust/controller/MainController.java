@@ -1,13 +1,17 @@
 package zust.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import zust.model.PageInfo;
 import zust.model.SChicken;
 import zust.model.User;
 import zust.model.Userinfo;
+import zust.service.SChickenService;
 import zust.service.UserService;
 import zust.service.UserinfoService;
 
@@ -16,6 +20,10 @@ import java.util.List;
 
 @Controller
 public class MainController {
+
+    @Qualifier("SChickenService")
+    @Autowired
+    SChickenService sChickenService;
 
     @Autowired
     UserinfoService userinfoService;
@@ -50,12 +58,13 @@ public class MainController {
         return mav;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/visit.do",method = RequestMethod.GET)
-    public ModelAndView visitController(){
+    public PageInfo<SChicken> visitController(){
         ModelAndView mav = new ModelAndView("visitpage");
-        List<SChicken> sclist = null;
+        PageInfo<SChicken> sclist = sChickenService.selectByTime(0,10);
         mav.addObject("sc",sclist);
-        return mav;
+        return sclist;
     }
 
 }

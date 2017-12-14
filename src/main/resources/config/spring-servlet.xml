@@ -33,6 +33,28 @@
         <property name="resolveLazily" value="true" />
     </bean>
 
+    <!--配置pagehelper -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations">
+            <array>
+                <value>classpath:mapping/*.xml</value>
+            </array>
+        </property>
+        <property name="typeAliasesPackage" value="zust.model"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
     <!--  静态资源交给默认的Servlet-->
     <mvc:default-servlet-handler/>
     <mvc:resources location="/resources/css/" mapping="/css/**"/>

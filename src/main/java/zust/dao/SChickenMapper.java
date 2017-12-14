@@ -2,6 +2,8 @@ package zust.dao;
 
 import zust.model.SChicken;
 
+import java.util.List;
+
 public interface SChickenMapper {
     int deleteByPrimaryKey(Integer scId);
 
@@ -14,4 +16,6 @@ public interface SChickenMapper {
     int updateByPrimaryKeySelective(SChicken record);
 
     int updateByPrimaryKey(SChicken record);
+
+    List<SChicken> selectByTime();
 }

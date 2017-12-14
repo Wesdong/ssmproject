@@ -6,7 +6,6 @@ body{
 .menu{
     height: 8%;
     width: 100%;
-    background-color: orange;
     border-bottom: 2px solid #6699ff;
 }
 #wrap{
@@ -42,6 +41,16 @@ ul li
     cursor:pointer;
     display: table;
     background:white;
+
+}
+.img{
+    width: 2.3%;
+    height:4.5%;
+    margin-top: 0.6%;
+    position:absolute;
+    left: 16%;
+    top: 0.6%;
+    
 }
 ul li a{
     display:table-cell;text-align: center;vertical-align: middle;text-decoration: none;color: #000;

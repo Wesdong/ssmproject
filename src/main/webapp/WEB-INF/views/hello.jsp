@@ -18,7 +18,7 @@
 <body>
 <div class="menu">
     <ul>
-        <li><a href="/mainpage">主页</a></li>
+        <li><img src="${pageContext.servletContext.contextPath}/resources/img/dog.png" class="img"> <a href="/mainpage">主页</a></li>
         <li><a href="/visitor">游客</a></li>
     </ul>
 </div>

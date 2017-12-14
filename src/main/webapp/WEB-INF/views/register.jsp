@@ -18,6 +18,11 @@
     <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+
+
+
+    </script>
 </head>
 <body>
    <div class="menu">
@@ -27,16 +32,15 @@
             <div id="join">
             现在加入SChicken
             </div>
-        <div id="register>
-">
-            <p><f:form action="/ssm/register.do" method="post"></p>
-                <p><f:input path="userRealname" type="text" placeholder="请输入名字"/></p>
-                <p><f:input path="userAccount" type="text" placeholder="请输入昵称"/></p>
-                <p><f:input path="userName" type="text" value="${username}" placeholder="请输入用户名"/></p>
-                <p><f:input path="userPassword" type="password" placeholder="请输入密码"/></p>
-                <p><input type="radio" value="男" name="gender" >男
-                <input type="radio" value="女" name="gender" >女</p>
-                <input type="submit" value="注册">
+        <div id="register">
+            <p><f:form action="/ssm/register.do" method="post" ></p>
+                <p><f:input path="userRealname" type="text" placeholder="请输入名字" class="text1"/></p>
+                <p><f:input path="userAccount" type="text" placeholder="请输入昵称" class="text1" /></p>
+                <p><f:input path="userName" type="text" value="${username}" placeholder="请输入用户名" class="text1" /></p>
+                <p><f:input path="userPassword" type="password" placeholder="请输入密码" class="text1" /></p>
+                <p id="button1"><input type="radio" value="男" name="gender">男&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" value="女" name="gender">女</p>
+                <input type="submit" value="注册" class="button">
             </f:form>
         </div>
    </div>

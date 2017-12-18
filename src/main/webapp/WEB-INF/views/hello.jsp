@@ -11,11 +11,34 @@
     <title>SChiken</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/SChicken.css">
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="${pageContext.servletContext.contextPath}/resources/img/univers1.jpg" alt="...">
+            <div class="carousel-caption">
+
+            </div>
+        </div>
+        <div class="item">
+            <img src="${pageContext.servletContext.contextPath}/resources/img/univers1.jpg" alt="...">
+            <div class="carousel-caption">
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
 <div class="menu">
     <ul>
         <li><img src="${pageContext.servletContext.contextPath}/resources/img/dog.png" class="img"> <a href="/ssm/mainpage.do">主页</a></li>

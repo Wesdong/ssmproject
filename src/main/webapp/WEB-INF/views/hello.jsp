@@ -52,7 +52,7 @@
             <form method="post" action="/ssm/login.do" >
                 <p><input type="text" name="username" placeholder="手机、邮箱或用户名" class="a"></p>
                 <p><input type="password" name="password" placeholder="密码" class="b"></p>
-                <input type="checkbox" class="c"><font style="font-family: 微软雅黑">记住我</font>
+                <input type="checkbox" class="c"><font style="font-family: 微软雅黑" class="f">记住我</font>
                 <input type="submit" value="登录" class="button1">
             </form>
         </div>

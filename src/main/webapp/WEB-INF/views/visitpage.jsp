@@ -24,6 +24,7 @@
     </div>
     <div>
         <c:forEach var="sc" items="${sclist.list}">
+            <img src="<c:out value="${pageContext.request.contextPath}/${piclist.get(sc.scPictureId-1).pictureUrl}"/>" >
             <p><c:out value="${sc.scInfo}"/></p>
         </c:forEach>
     </div>

@@ -6,16 +6,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import zust.model.Picture;
 import zust.model.SChicken;
 import zust.model.User;
+import zust.service.PictureService;
 import zust.service.SchickenService;
 import zust.service.UserService;
 import zust.service.UserinfoService;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    PictureService pictureService;
 
     @Autowired
     SchickenService schickenService;
@@ -56,6 +62,8 @@ public class MainController {
     public ModelAndView visitController(){
         ModelAndView mav = new ModelAndView("visitpage");
         PageInfo<SChicken> sclist = schickenService.selectByTime(0,5);
+        List<Picture> piclist = pictureService.GetPicture();
+        mav.addObject("piclist",piclist);
         mav.addObject("sclist",sclist);
         return mav;
     }

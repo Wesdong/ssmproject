@@ -1,6 +1,7 @@
 package zust.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,8 +63,14 @@ public class MainController {
     public ModelAndView visitController(){
         ModelAndView mav = new ModelAndView("visitpage");
         PageInfo<SChicken> sclist = schickenService.selectByTime(0,5);
-        List<Picture> piclist = pictureService.GetPicture();
-        mav.addObject("piclist",piclist);
+        mav.addObject("sclist",sclist);
+        return mav;
+    }
+
+    @RequestMapping(value = "/search.do", method = RequestMethod.GET)
+    public ModelAndView searchController(String what2search){
+        ModelAndView mav = new ModelAndView("search");
+        PageInfo<SChicken> sclist = schickenService.selectByInfo(what2search,0,5);
         mav.addObject("sclist",sclist);
         return mav;
     }

@@ -13,6 +13,16 @@ public class User {
 
     private String userRealname;
 
+    private Userinfo userinfo;
+
+    public Userinfo getUserinfo() {
+        return userinfo;
+    }
+
+    public void setUserinfo(Userinfo userinfo) {
+        this.userinfo = userinfo;
+    }
+
     public Integer getUserId() {
         return userId;
     }

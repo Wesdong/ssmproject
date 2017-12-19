@@ -10,6 +10,22 @@
     <result column="sc_comments" jdbcType="INTEGER" property="scComments" />
     <result column="sc_ifcomments" jdbcType="TINYINT" property="scIfcomments" />
     <result column="sc_picture_id" jdbcType="INTEGER" property="scPictureId" />
+    <association property="picture" javaType="zust.model.Picture">
+      <id column="picture_id" property="pictureId"/>
+      <result property="pictureUrl" column="picture_url"/>
+    </association>
+    <association property="user" javaType="zust.model.User">
+      <id column="user_id" property="userId"/>
+      <result column="user_account" property="userAccount"/>
+      <result column="user_realname" property="userRealname"/>
+    </association>
+    <association property="userinfo" javaType="zust.model.Userinfo">
+      <id property="userinfoId" column="userinfo_id"/>
+      <result property="userinfoPicurl" column="userinfo_picurl"/>
+      <result property="userinfoVip" column="userinfo_vip"/>
+      <result property="userinfoStatement" column="userinfo_statement"/>
+      <result property="userinfoBirth" column="userinfo_birth"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
     sc_id, sc_user_id, sc_info, sc_date, sc_like, sc_comments, sc_ifcomments, sc_picture_id
@@ -22,9 +38,16 @@
   </select>
   <select id="selectByTime" parameterType="zust.model.SChicken" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
-    from sc
+    sc_id, sc_user_id, sc_info, sc_date, sc_like, sc_comments, sc_ifcomments, sc_picture_id, picture.picture_url
+    from sc,picture WHERE sc.sc_picture_id = picture.picture_id
     ORDER BY sc_date DESC
+  </select>
+  <select id="selectByInfo" parameterType="zust.model.SChicken" resultMap="BaseResultMap">
+    select
+    sc_id, sc_user_id, sc_info, sc_date, sc_like, sc_comments, sc_ifcomments, sc_picture_id,picture.picture_url, user.user_account,
+    user.user_realname,userinfo.userinfo_picurl,userinfo.userinfo_vip,userinfo.userinfo_birth
+    from sc,user,userinfo,picture WHERE sc_info LIKE #{searchinfo} AND sc.sc_user_id = user.user_id AND user.user_id = userinfo.userinfo_id
+    AND sc.sc_picture_id = picture.picture_id
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sc

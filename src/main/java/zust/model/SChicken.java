@@ -20,6 +20,36 @@ public class SChicken {
 
     private Integer scPictureId;
 
+    private Picture picture;
+
+    private User user;
+
+    private Userinfo userinfo;
+
+    public Userinfo getUserinfo() {
+        return userinfo;
+    }
+
+    public void setUserinfo(Userinfo userinfo) {
+        this.userinfo = userinfo;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
+
     public Integer getScId() {
         return scId;
     }

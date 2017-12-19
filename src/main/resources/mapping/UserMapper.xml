@@ -8,6 +8,13 @@
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="user_gender" jdbcType="VARCHAR" property="userGender" />
     <result column="user_realname" jdbcType="VARCHAR" property="userRealname" />
+    <association property="userinfo" javaType="zust.model.Userinfo">
+      <id property="userinfoId" column="userinfo_id"/>
+      <result property="userinfoPicurl" column="userinfo_picurl"/>
+      <result property="userinfoVip" column="userinfo_vip"/>
+      <result property="userinfoStatement" column="userinfo_statement"/>
+      <result property="userinfoBirth" column="userinfo_birth"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
     user_id, user_account, user_password, user_name, user_gender, user_realname

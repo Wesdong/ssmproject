@@ -15,7 +15,7 @@
 <body>
 <a href="/ssm/mainpage.do">主页</a>
 <a href="/ssm/visit.do">游客</a>
-<a href="/ssm/message.do">主页</a>
+<a href="/ssm/message.do">私信</a>
 <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png">
 <form method="get" action="/ssm/search.do">
     <input type="text" name="what2search">

@@ -10,17 +10,21 @@
 <html>
 <head>
     <title>SChicken游园会</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/visitpage.css">
 </head>
 <body>
-    <div>
-        <a href="/ssm/mainpage.do">主页</a>
-        <a href="/ssm/visit.do">游客</a>
-        <a href="/ssm/message.do">私信</a>
-        <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png">
-        <form method="get" action="/ssm/search.do">
-            <input type="text" name="what2search">
-            <input type="submit" value="搜索">
-        </form>
+    <div class="menu">
+        <ul>
+            <li><a href="/ssm/mainpage.do">主页</a></li>
+            <li><a href="/ssm/visit.do">游客</a></li>
+            <li><a href="/ssm/message.do">私信</a></li>
+        </ul>
+            <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png" >
+            <form method="get" action="/ssm/search.do">
+                <input type="text" name="what2search" class="a">
+                <input type="submit" value="搜索" class="b">
+            </form>
+
     </div>
     <div>
         <c:forEach var="sc" items="${sclist.list}">

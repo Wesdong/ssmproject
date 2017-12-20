@@ -1,5 +1,6 @@
 package zust.dao;
 
+import com.github.pagehelper.PageInfo;
 import zust.model.SChicken;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface SChickenMapper {
     int updateByPrimaryKey(SChicken record);
 
     List<SChicken> selectByTime();
+
+    List<SChicken> selectByInfo(String searchinfo);
 }

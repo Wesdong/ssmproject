@@ -27,6 +27,13 @@ public class SchickenServiceImpl implements SchickenService {
         return sChickenMapper.selectByTime();
     }
 
+    public PageInfo<SChicken> selectByInfo(String what2search,int pageNum, int pageSize) {
+        what2search = '%' + what2search + '%';
+        PageHelper.startPage(pageNum,pageSize);
+        List<SChicken> list = sChickenMapper.selectByInfo(what2search);
+        return new PageInfo<SChicken>(list);
+    }
+
     public SChicken selectByPK(int id) {
         return sChickenMapper.selectByPrimaryKey(id);
     }

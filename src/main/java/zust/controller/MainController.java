@@ -52,10 +52,10 @@ public class MainController {
     public ModelAndView signupController(User user,String gender){
         ModelAndView mav = new ModelAndView("signup");
         user.setUserGender(gender);
-        System.out.println(user.getUserId());
         userService.insertUser(user);
         mav.addObject("user",user);
         session.setAttribute("user",user);
+        session.setAttribute("loginflag",1);
         return mav;
     }
 
@@ -72,6 +72,29 @@ public class MainController {
         ModelAndView mav = new ModelAndView("search");
         PageInfo<SChicken> sclist = schickenService.selectByInfo(what2search,0,5);
         mav.addObject("sclist",sclist);
+        return mav;
+    }
+
+    @RequestMapping(value = "/login.do",method = RequestMethod.POST)
+    public ModelAndView loginController(String username,String password){
+        ModelAndView mav = new ModelAndView("mainpage");
+        ModelAndView error = new ModelAndView("hello");
+        User user = userService.selectUserByUserName(username);
+        if (user.getUserName().equals(username) && user.getUserPassword().equals(password)){
+            mav.addObject("loginright",1);
+            mav.addObject("user",user);
+            session.setAttribute("user",user);
+            session.setAttribute("loginflag",1);
+            return mav;
+        }else{
+            mav.addObject("loginright",0);
+            return error;
+        }
+    }
+
+    @RequestMapping(value = "/mainpage.do", method = RequestMethod.POST)
+    public ModelAndView mainpageController(){
+        ModelAndView mav = new ModelAndView("mainpage");
         return mav;
     }
 }

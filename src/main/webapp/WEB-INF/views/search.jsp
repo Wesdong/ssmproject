@@ -29,7 +29,6 @@
     <img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>">
     likes<c:out value="${sc.scLike}"/>
     comments<c:out value="${sc.scComments}"/>
-    message
     <br>
 </c:forEach>
 </body>

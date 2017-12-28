@@ -16,4 +16,9 @@ public class UserServiceImpl implements UserService {
         userMapper.insertSelective(user);
         return user;
     }
+
+    public User selectUserByUserName(String username) {
+        User user = userMapper.selectByUserName(username);
+        return user;
+    }
 }

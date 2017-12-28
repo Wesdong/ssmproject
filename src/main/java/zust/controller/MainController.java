@@ -76,9 +76,20 @@ public class MainController {
     }
 
     @RequestMapping(value = "/login.do",method = RequestMethod.POST)
-    public ModelAndView loginController(){
+    public ModelAndView loginController(String username,String password){
         ModelAndView mav = new ModelAndView("mainpage");
-        return mav;
+        ModelAndView error = new ModelAndView("hello");
+        User user = userService.selectUserByUserName(username);
+        if (user.getUserName().equals(username) && user.getUserPassword().equals(password)){
+            mav.addObject("loginright",1);
+            mav.addObject("user",user);
+            session.setAttribute("user",user);
+            session.setAttribute("loginflag",1);
+            return mav;
+        }else{
+            mav.addObject("loginright",0);
+            return error;
+        }
     }
 
     @RequestMapping(value = "/mainpage.do", method = RequestMethod.POST)

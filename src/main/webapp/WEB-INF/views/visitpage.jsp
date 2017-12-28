@@ -26,11 +26,15 @@
             </form>
 
     </div>
-    <div>
-        <c:forEach var="sc" items="${sclist.list}">
-            <img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>" >
-            <p><c:out value="${sc.scInfo}"/></p>
-        </c:forEach>
+    <div class="wrap">
+        <div class="main">
+               <c:forEach var="sc" items="${sclist.list}">
+                <div class="detail">
+                    <div class="img"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>" ></div>
+                    <p><c:out value="${sc.scInfo}"/></p>
+                </div>
+               </c:forEach>
+        </div>
     </div>
 </body>
 </html>

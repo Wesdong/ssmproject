@@ -121,8 +121,9 @@ input.b{
     border-width: 1px;
 }
 input.c{
-    position: relative;
-    left: 10%;
+    position: absolute;
+    left: 8%;
+    bottom: 16%;
     font-family: 微软雅黑;
 }
 input.button1{
@@ -188,7 +189,8 @@ input.button2{
     -webkit-appearance:none;
 }
 .f{
-    position: relative;
-    left: 10%;
+    position: absolute;
+    bottom: 15%;
+    left: 13%;
     font-family: 微软雅黑;
 }

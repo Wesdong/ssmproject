@@ -94,7 +94,44 @@ input.b{
     text-align: center;
     margin-top: 3%;
 }
-.detail p{
-    margin-left: 3%;
+.img1{
+    width: 62px;
+    height: 62px;
+    float: left;
+    margin-left: 4%;
+    margin-top: 2.5%;
+    position: absolute;
+    left: 18%;
+}
+.img1 img{
+    width: 60px;
+    height: 60px;
+    float: left;
+}
+.text{
+    font-family: "微软雅黑";
+    line-height: 2px;
+    margin-left: 13%;
+    margin-top: 7%;
+}
+.name1{
+    font-size: 18px;
+}
+.name2{
+    font-size: 14px;
+    color: #666666;
+}
+.p{
     margin-right: 3%;
+    margin-left: 3%;
+    margin-top: 3%;
+    font-size: 16px;
+}
+.content{
+    border-radius: 25px;
+    padding: 20px;
+    width: 200px;
+    height: 500px;
+    display: inline-block;
+    cursor: pointer;
 }

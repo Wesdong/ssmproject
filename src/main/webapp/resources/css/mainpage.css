@@ -78,23 +78,31 @@ input.b{
     background-color: #f2f2f2;
 
 }
-.main {
-    margin:0 auto;
-    width: 60%;
-    border-color: #66ccff;
-    background-color: white;
+#left{
+    width: 40%;
+    height: 100%;
+    float: left;
+    background-color: #6699ff;
+}
+#left1{
+    width: 80%;
+    margin-left: 20%;
+    margin-top: 10%;
+    font-size: 26px;
+    font-family: 微软雅黑;
 
 }
-.detail{
-    border:1px solid #666666;
-    font-family: "微软雅黑";
-    font-size: 16px;
+#left2{
+    width: 90%;
+    margin-left: 20%;
+    margin-top: 10%;
+    font-size: 22px;
+    font-family: 微软雅黑;
+    line-height: 60%;
 }
-.img{
-    text-align: center;
-    margin-top: 3%;
-}
-.detail p{
-    margin-left: 3%;
-    margin-right: 3%;
+#right{
+    width: 60%;
+    height: 100%;
+    float: right;
+    background-color: #66ccff;
 }

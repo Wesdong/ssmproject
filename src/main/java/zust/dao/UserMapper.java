@@ -16,4 +16,8 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    Integer selectFollows(Integer userId);
+
+    Integer selectFans(Integer userId);
 }

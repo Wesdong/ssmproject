@@ -1,6 +1,13 @@
 package zust.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import zust.dao.UserinfoMapper;
+
+import java.util.List;
+import java.util.Random;
+
 public class User {
+
     private Integer userId;
 
     private String userAccount;
@@ -14,6 +21,26 @@ public class User {
     private String userRealname;
 
     private Userinfo userinfo;
+
+    private List<SChicken> scList;
+
+    private List<Relation> relationList;
+
+    public List<Relation> getRelationList() {
+        return relationList;
+    }
+
+    public void setRelationList(List<Relation> relationList) {
+        this.relationList = relationList;
+    }
+
+    public List<SChicken> getScList() {
+        return scList;
+    }
+
+    public void setScList(List<SChicken> scList) {
+        this.scList = scList;
+    }
 
     public Userinfo getUserinfo() {
         return userinfo;

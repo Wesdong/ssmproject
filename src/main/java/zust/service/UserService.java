@@ -7,4 +7,6 @@ import zust.model.User;
 public interface UserService {
     public User insertUser(User user);
     public User selectUserByUserName(String username);
+    public Integer selectFollows(Integer userId);
+    public Integer selectFans(Integer userId);
 }

@@ -21,4 +21,14 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectByUserName(username);
         return user;
     }
+
+    public Integer selectFollows(Integer userId) {
+        Integer follows = userMapper.selectFollows(userId);
+        return follows;
+    }
+
+    public Integer selectFans(Integer userId) {
+        Integer fans = userMapper.selectFans(userId);
+        return fans;
+    }
 }

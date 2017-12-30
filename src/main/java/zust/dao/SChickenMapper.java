@@ -21,4 +21,6 @@ public interface SChickenMapper {
     List<SChicken> selectByTime();
 
     List<SChicken> selectByInfo(String searchinfo);
+
+    List<SChicken> selectByUserID(int id);
 }

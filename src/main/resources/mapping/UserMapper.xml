@@ -15,6 +15,38 @@
       <result property="userinfoStatement" column="userinfo_statement"/>
       <result property="userinfoBirth" column="userinfo_birth"/>
     </association>
+    <collection property="scList" ofType="zust.model.SChicken">
+      <id column="sc_id" jdbcType="INTEGER" property="scId" />
+      <result column="sc_user_id" jdbcType="INTEGER" property="scUserId" />
+      <result column="sc_info" jdbcType="VARCHAR" property="scInfo" />
+      <result column="sc_date" jdbcType="DATE" property="scDate" />
+      <result column="sc_like" jdbcType="INTEGER" property="scLike" />
+      <result column="sc_comments" jdbcType="INTEGER" property="scComments" />
+      <result column="sc_ifcomments" jdbcType="TINYINT" property="scIfcomments" />
+      <result column="sc_picture_id" jdbcType="INTEGER" property="scPictureId" />
+      <association property="picture" javaType="zust.model.Picture">
+        <id column="picture_id" property="pictureId"/>
+        <result property="pictureUrl" column="picture_url"/>
+      </association>
+      <association property="user" javaType="zust.model.User">
+        <id column="user_id" property="userId"/>
+        <result column="user_account" property="userAccount"/>
+        <result column="user_realname" property="userRealname"/>
+      </association>
+      <association property="userinfo" javaType="zust.model.Userinfo">
+        <id property="userinfoId" column="userinfo_id"/>
+        <result property="userinfoPicurl" column="userinfo_picurl"/>
+        <result property="userinfoVip" column="userinfo_vip"/>
+        <result property="userinfoStatement" column="userinfo_statement"/>
+        <result property="userinfoBirth" column="userinfo_birth"/>
+      </association>
+    </collection>
+    <collection property="relationList" ofType="zust.model.Relation">
+      <id column="relation_id" jdbcType="INTEGER" property="relationId" />
+      <result column="relation_user_id" jdbcType="INTEGER" property="relationUserId" />
+      <result column="related_user_id" jdbcType="INTEGER" property="relatedUserId" />
+      <result column="relation_type" jdbcType="INTEGER" property="relationType" />
+    </collection>
   </resultMap>
   <sql id="Base_Column_List">
     user_id, user_account, user_password, user_name, user_gender, user_realname
@@ -25,11 +57,24 @@
     from user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
+  <select id="selectFollows" parameterType="java.lang.Integer" resultType="Integer">
+    select
+    count(*)
+    from user,relation
+    where user_id = #{userId,jdbcType=INTEGER} AND user.user_id = relation.related_user_id
+  </select>
+  <select id="selectFans" parameterType="java.lang.Integer" resultType="Integer">
+    select
+    count(*)
+    from user,relation
+    where user_id = #{userId,jdbcType=INTEGER} AND user.user_id = relation.relation_user_id
+  </select>
   <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
-    from user
-    where user_account = #{userName,jdbcType=VARCHAR}
+    user_id, user_account, user_password, user_name, user_gender, user_realname, userinfo.*,sc.*,picture.*
+    from user,userinfo,sc,picture
+    where user_account = #{userName,jdbcType=VARCHAR} AND user_id = userinfo.userinfo_id AND sc.sc_user_id = user.user_id
+    AND sc.sc_picture_id = picture.picture_id
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user

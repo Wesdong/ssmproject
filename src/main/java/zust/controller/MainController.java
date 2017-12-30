@@ -80,15 +80,24 @@ public class MainController {
         ModelAndView mav = new ModelAndView("mainpage");
         ModelAndView error = new ModelAndView("hello");
         User user = userService.selectUserByUserName(username);
-        if (user.getUserName().equals(username) && user.getUserPassword().equals(password)){
-            mav.addObject("loginright",1);
-            mav.addObject("user",user);
-            session.setAttribute("user",user);
-            session.setAttribute("loginflag",1);
-            return mav;
-        }else{
+        Integer follows = userService.selectFollows(user.getUserId());
+        Integer fans = userService.selectFans(user.getUserId());
+        if (user == null){
             mav.addObject("loginright",0);
             return error;
+        }else{
+            if (user.getUserName().equals(username) && user.getUserPassword().equals(password)){
+                mav.addObject("loginright",1);
+                mav.addObject("user",user);
+                mav.addObject("fans",fans);
+                mav.addObject("follows",follows);
+                session.setAttribute("user",user);
+                session.setAttribute("loginflag",1);
+                return mav;
+            }else{
+                mav.addObject("loginright",0);
+                return error;
+            }
         }
     }
 

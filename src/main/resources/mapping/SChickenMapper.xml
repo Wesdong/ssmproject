@@ -42,6 +42,12 @@
     from sc,picture WHERE sc.sc_picture_id = picture.picture_id
     ORDER BY sc_date DESC
   </select>
+  <select id="selectByUserID" parameterType="zust.model.SChicken" resultMap="BaseResultMap">
+    select
+    sc_id, sc_user_id, sc_info, sc_date, sc_like, sc_comments, sc_ifcomments, sc_picture_id, picture.picture_url
+    from sc,picture,user WHERE sc.sc_picture_id = picture.picture_id AND sc.sc_user_id = user.user_id
+    ORDER BY sc_date DESC
+  </select>
   <select id="selectByInfo" parameterType="zust.model.SChicken" resultMap="BaseResultMap">
     select
     sc_id, sc_user_id, sc_info, sc_date, sc_like, sc_comments, sc_ifcomments, sc_picture_id,picture.picture_url, user.user_account,

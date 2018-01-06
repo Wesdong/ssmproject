@@ -13,6 +13,16 @@ public class Comments {
 
     private Date commentsDate;
 
+    private User user_commented;
+
+    public User getUser_commented() {
+        return user_commented;
+    }
+
+    public void setUser_commented(User user_commented) {
+        this.user_commented = user_commented;
+    }
+
     public Integer getCommentsId() {
         return commentsId;
     }

@@ -34,6 +34,15 @@ public class SchickenServiceImpl implements SchickenService {
         return new PageInfo<SChicken>(list);
     }
 
+    public void insertSC(SChicken sc) {
+        sChickenMapper.insertSelective(sc);
+    }
+
+    public List<SChicken> selectFollowsSCByUserId(int userId) {
+        List<SChicken> sChickenList = sChickenMapper.selectFollowsSCByUserId(userId);
+        return  sChickenList;
+    }
+
     public SChicken selectByPK(int id) {
         return sChickenMapper.selectByPrimaryKey(id);
     }

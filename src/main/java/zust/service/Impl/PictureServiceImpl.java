@@ -18,4 +18,14 @@ public class PictureServiceImpl implements PictureService {
         List<Picture> list = pictureMapper.selectAllPicture();
         return list;
     }
+
+    public void insertSelectPicture(Picture picture) {
+        pictureMapper.insertSelective(picture);
+    }
+
+    public Picture selectPictureByName(String pictureName) {
+        pictureName = "%"+pictureName;
+        Picture picture = pictureMapper.selectByPictureName(pictureName);
+        return picture;
+    }
 }

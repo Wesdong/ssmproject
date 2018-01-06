@@ -23,4 +23,6 @@ public interface SChickenMapper {
     List<SChicken> selectByInfo(String searchinfo);
 
     List<SChicken> selectByUserID(int id);
+
+    List<SChicken> selectFollowsSCByUserId(int userId);
 }

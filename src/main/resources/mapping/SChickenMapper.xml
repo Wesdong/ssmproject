@@ -11,21 +11,118 @@
     <result column="sc_ifcomments" jdbcType="TINYINT" property="scIfcomments" />
     <result column="sc_picture_id" jdbcType="INTEGER" property="scPictureId" />
     <association property="picture" javaType="zust.model.Picture">
-      <id column="picture_id" property="pictureId"/>
-      <result property="pictureUrl" column="picture_url"/>
+      <id column="picture_id" jdbcType="INTEGER" property="pictureId" />
+      <result column="picture_user_id" jdbcType="INTEGER" property="pictureUserId" />
+      <result column="picture_url" jdbcType="VARCHAR" property="pictureUrl" />
     </association>
     <association property="user" javaType="zust.model.User">
-      <id column="user_id" property="userId"/>
-      <result column="user_account" property="userAccount"/>
-      <result column="user_realname" property="userRealname"/>
+      <id column="user_id" jdbcType="INTEGER" property="userId" />
+      <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+      <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+      <result column="user_name" jdbcType="VARCHAR" property="userName" />
+      <result column="user_gender" jdbcType="VARCHAR" property="userGender" />
+      <result column="user_realname" jdbcType="VARCHAR" property="userRealname" />
+      <association property="userinfo" javaType="zust.model.Userinfo">
+        <id property="userinfoId" column="userinfo_id"/>
+        <result property="userinfoPicurl" column="userinfo_picurl"/>
+        <result property="userinfoVip" column="userinfo_vip"/>
+        <result property="userinfoStatement" column="userinfo_statement"/>
+        <result property="userinfoBirth" column="userinfo_birth"/>
+      </association>
+      <collection property="scList" ofType="zust.model.SChicken">
+        <id column="sc_id" jdbcType="INTEGER" property="scId" />
+        <result column="sc_user_id" jdbcType="INTEGER" property="scUserId" />
+        <result column="sc_info" jdbcType="VARCHAR" property="scInfo" />
+        <result column="sc_date" jdbcType="DATE" property="scDate" />
+        <result column="sc_like" jdbcType="INTEGER" property="scLike" />
+        <result column="sc_comments" jdbcType="INTEGER" property="scComments" />
+        <result column="sc_ifcomments" jdbcType="TINYINT" property="scIfcomments" />
+        <result column="sc_picture_id" jdbcType="INTEGER" property="scPictureId" />
+        <association property="picture" javaType="zust.model.Picture">
+          <id column="picture_id" property="pictureId"/>
+          <result property="pictureUrl" column="picture_url"/>
+        </association>
+        <association property="user" javaType="zust.model.User">
+          <id column="user_id" property="userId"/>
+          <result column="user_account" property="userAccount"/>
+          <result column="user_realname" property="userRealname"/>
+        </association>
+        <association property="userinfo" javaType="zust.model.Userinfo">
+          <id property="userinfoId" column="userinfo_id"/>
+          <result property="userinfoPicurl" column="userinfo_picurl"/>
+          <result property="userinfoVip" column="userinfo_vip"/>
+          <result property="userinfoStatement" column="userinfo_statement"/>
+          <result property="userinfoBirth" column="userinfo_birth"/>
+        </association>
+      </collection>
+      <collection property="relationList" ofType="zust.model.Relation">
+        <id column="relation_id" jdbcType="INTEGER" property="relationId" />
+        <result column="relation_user_id" jdbcType="INTEGER" property="relationUserId" />
+        <result column="related_user_id" jdbcType="INTEGER" property="relatedUserId" />
+        <result column="relation_type" jdbcType="INTEGER" property="relationType" />
+      </collection>
     </association>
     <association property="userinfo" javaType="zust.model.Userinfo">
-      <id property="userinfoId" column="userinfo_id"/>
-      <result property="userinfoPicurl" column="userinfo_picurl"/>
-      <result property="userinfoVip" column="userinfo_vip"/>
-      <result property="userinfoStatement" column="userinfo_statement"/>
-      <result property="userinfoBirth" column="userinfo_birth"/>
+      <id column="userinfo_id" jdbcType="INTEGER" property="userinfoId" />
+      <result column="userinfo_picurl" jdbcType="VARCHAR" property="userinfoPicurl" />
+      <result column="userinfo_vip" jdbcType="TINYINT" property="userinfoVip" />
+      <result column="userinfo_statement" jdbcType="VARCHAR" property="userinfoStatement" />
+      <result column="userinfo_birth" jdbcType="TIMESTAMP" property="userinfoBirth" />
     </association>
+    <collection property="commentsList" ofType="zust.model.Comments">
+      <id column="comments_id" jdbcType="INTEGER" property="commentsId" />
+      <result column="comments_user_id" jdbcType="INTEGER" property="commentsUserId" />
+      <result column="comments_sc_id" jdbcType="INTEGER" property="commentsScId" />
+      <result column="comments_info" jdbcType="VARCHAR" property="commentsInfo" />
+      <result column="comments_date" jdbcType="TIMESTAMP" property="commentsDate" />
+      <association property="user_commented" javaType="zust.model.User">
+        <id column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+        <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="user_gender" jdbcType="VARCHAR" property="userGender" />
+        <result column="user_realname" jdbcType="VARCHAR" property="userRealname" />
+        <association property="userinfo" javaType="zust.model.Userinfo">
+          <id property="userinfoId" column="userinfo_id"/>
+          <result property="userinfoPicurl" column="userinfo_picurl"/>
+          <result property="userinfoVip" column="userinfo_vip"/>
+          <result property="userinfoStatement" column="userinfo_statement"/>
+          <result property="userinfoBirth" column="userinfo_birth"/>
+        </association>
+        <collection property="scList" ofType="zust.model.SChicken">
+          <id column="sc_id" jdbcType="INTEGER" property="scId" />
+          <result column="sc_user_id" jdbcType="INTEGER" property="scUserId" />
+          <result column="sc_info" jdbcType="VARCHAR" property="scInfo" />
+          <result column="sc_date" jdbcType="DATE" property="scDate" />
+          <result column="sc_like" jdbcType="INTEGER" property="scLike" />
+          <result column="sc_comments" jdbcType="INTEGER" property="scComments" />
+          <result column="sc_ifcomments" jdbcType="TINYINT" property="scIfcomments" />
+          <result column="sc_picture_id" jdbcType="INTEGER" property="scPictureId" />
+          <association property="picture" javaType="zust.model.Picture">
+            <id column="picture_id" property="pictureId"/>
+            <result property="pictureUrl" column="picture_url"/>
+          </association>
+          <association property="user" javaType="zust.model.User">
+            <id column="user_id" property="userId"/>
+            <result column="user_account" property="userAccount"/>
+            <result column="user_realname" property="userRealname"/>
+          </association>
+          <association property="userinfo" javaType="zust.model.Userinfo">
+            <id property="userinfoId" column="userinfo_id"/>
+            <result property="userinfoPicurl" column="userinfo_picurl"/>
+            <result property="userinfoVip" column="userinfo_vip"/>
+            <result property="userinfoStatement" column="userinfo_statement"/>
+            <result property="userinfoBirth" column="userinfo_birth"/>
+          </association>
+        </collection>
+        <collection property="relationList" ofType="zust.model.Relation">
+          <id column="relation_id" jdbcType="INTEGER" property="relationId" />
+          <result column="relation_user_id" jdbcType="INTEGER" property="relationUserId" />
+          <result column="related_user_id" jdbcType="INTEGER" property="relatedUserId" />
+          <result column="relation_type" jdbcType="INTEGER" property="relationType" />
+        </collection>
+      </association>
+    </collection>
   </resultMap>
   <sql id="Base_Column_List">
     sc_id, sc_user_id, sc_info, sc_date, sc_like, sc_comments, sc_ifcomments, sc_picture_id
@@ -41,6 +138,49 @@
     sc_id, sc_user_id, sc_info, sc_date, sc_like, sc_comments, sc_ifcomments, sc_picture_id, picture.picture_url
     from sc,picture WHERE sc.sc_picture_id = picture.picture_id
     ORDER BY sc_date DESC
+  </select>
+  <select id="selectFollowsSCByUserId" parameterType="zust.model.SChicken" resultMap="BaseResultMap">
+    SELECT
+        sc.sc_user_id,
+        sc.sc_info,
+        sc.sc_date,
+        sc.sc_like,
+        sc.sc_comments,
+        sc.sc_ifcomments,
+        sc.sc_id,
+        sc.sc_picture_id,
+        `user`.user_id,
+        `user`.user_account,
+        `user`.user_password,
+        `user`.user_name,
+        `user`.user_gender,
+        `user`.user_realname,
+        picture.picture_user_id,
+        picture.picture_id,
+        picture.picture_url,
+        userinfo.userinfo_id,
+        userinfo.userinfo_picurl,
+        userinfo.userinfo_vip,
+        userinfo.userinfo_statement,
+        userinfo.userinfo_birth,
+        comments.comments_id,
+        comments.comments_user_id,
+        comments.comments_sc_id,
+        comments.comments_info,
+        comments.comments_date
+    FROM
+        sc
+        INNER JOIN `user` ON sc.sc_user_id = `user`.user_id
+        INNER JOIN relation ON relation.related_user_id = `user`.user_id
+        LEFT JOIN picture ON picture.picture_user_id = `user`.user_id
+        AND sc.sc_picture_id = picture.picture_id
+        INNER JOIN userinfo ON userinfo.userinfo_id = `user`.user_id
+        LEFT JOIN comments ON comments.comments_sc_id = sc.sc_id
+    WHERE
+        `user`.user_id = #{userId,jdbcType=INTEGER}
+        OR `user`.user_id = relation.related_user_id
+    ORDER BY
+        sc.sc_date DESC
   </select>
   <select id="selectByUserID" parameterType="zust.model.SChicken" resultMap="BaseResultMap">
     select

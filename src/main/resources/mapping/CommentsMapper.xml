@@ -7,6 +7,53 @@
     <result column="comments_sc_id" jdbcType="INTEGER" property="commentsScId" />
     <result column="comments_info" jdbcType="VARCHAR" property="commentsInfo" />
     <result column="comments_date" jdbcType="TIMESTAMP" property="commentsDate" />
+    <association property="user_commented" javaType="zust.model.User">
+      <id column="user_id" jdbcType="INTEGER" property="userId" />
+      <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+      <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+      <result column="user_name" jdbcType="VARCHAR" property="userName" />
+      <result column="user_gender" jdbcType="VARCHAR" property="userGender" />
+      <result column="user_realname" jdbcType="VARCHAR" property="userRealname" />
+      <association property="userinfo" javaType="zust.model.Userinfo">
+        <id property="userinfoId" column="userinfo_id"/>
+        <result property="userinfoPicurl" column="userinfo_picurl"/>
+        <result property="userinfoVip" column="userinfo_vip"/>
+        <result property="userinfoStatement" column="userinfo_statement"/>
+        <result property="userinfoBirth" column="userinfo_birth"/>
+      </association>
+      <collection property="scList" ofType="zust.model.SChicken">
+        <id column="sc_id" jdbcType="INTEGER" property="scId" />
+        <result column="sc_user_id" jdbcType="INTEGER" property="scUserId" />
+        <result column="sc_info" jdbcType="VARCHAR" property="scInfo" />
+        <result column="sc_date" jdbcType="DATE" property="scDate" />
+        <result column="sc_like" jdbcType="INTEGER" property="scLike" />
+        <result column="sc_comments" jdbcType="INTEGER" property="scComments" />
+        <result column="sc_ifcomments" jdbcType="TINYINT" property="scIfcomments" />
+        <result column="sc_picture_id" jdbcType="INTEGER" property="scPictureId" />
+        <association property="picture" javaType="zust.model.Picture">
+          <id column="picture_id" property="pictureId"/>
+          <result property="pictureUrl" column="picture_url"/>
+        </association>
+        <association property="user" javaType="zust.model.User">
+          <id column="user_id" property="userId"/>
+          <result column="user_account" property="userAccount"/>
+          <result column="user_realname" property="userRealname"/>
+        </association>
+        <association property="userinfo" javaType="zust.model.Userinfo">
+          <id property="userinfoId" column="userinfo_id"/>
+          <result property="userinfoPicurl" column="userinfo_picurl"/>
+          <result property="userinfoVip" column="userinfo_vip"/>
+          <result property="userinfoStatement" column="userinfo_statement"/>
+          <result property="userinfoBirth" column="userinfo_birth"/>
+        </association>
+      </collection>
+      <collection property="relationList" ofType="zust.model.Relation">
+        <id column="relation_id" jdbcType="INTEGER" property="relationId" />
+        <result column="relation_user_id" jdbcType="INTEGER" property="relationUserId" />
+        <result column="related_user_id" jdbcType="INTEGER" property="relatedUserId" />
+        <result column="relation_type" jdbcType="INTEGER" property="relationType" />
+      </collection>
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
     comments_id, comments_user_id, comments_sc_id, comments_info, comments_date

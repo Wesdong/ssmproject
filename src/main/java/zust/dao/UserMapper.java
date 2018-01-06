@@ -2,6 +2,8 @@ package zust.dao;
 
 import zust.model.User;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer userId);
 
@@ -20,4 +22,10 @@ public interface UserMapper {
     Integer selectFollows(Integer userId);
 
     Integer selectFans(Integer userId);
+
+    Integer selectscs(Integer userId);
+
+    List<User> selectFansUserList(Integer userId);
+
+    List<User> selectFollowsUserList(Integer userId);
 }

@@ -20,6 +20,11 @@
     <include refid="Base_Column_List" />
     from picture
   </select>
+  <select id="selectByPictureName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from picture WHERE picture_url LIKE #{pictureName}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from picture
     where picture_id = #{pictureId,jdbcType=INTEGER}

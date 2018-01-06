@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import sun.util.calendar.BaseCalendar;
 import zust.model.Picture;
 import zust.model.SChicken;
 import zust.model.User;
@@ -15,7 +18,13 @@ import zust.service.SchickenService;
 import zust.service.UserService;
 import zust.service.UserinfoService;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -77,9 +86,9 @@ public class MainController {
 
     @RequestMapping(value = "/login.do",method = RequestMethod.POST)
     public ModelAndView loginController(String username,String password){
-        ModelAndView mav = new ModelAndView("mainpage");
+        ModelAndView mav = new ModelAndView("personpage");
         ModelAndView error = new ModelAndView("hello");
-        User user = userService.selectUserByUserName(username);
+        User user = userService.selectByUserName(username);
         Integer follows = userService.selectFollows(user.getUserId());
         Integer fans = userService.selectFans(user.getUserId());
         if (user == null){
@@ -101,9 +110,70 @@ public class MainController {
         }
     }
 
-    @RequestMapping(value = "/mainpage.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/mainpage.do", method = RequestMethod.GET)
     public ModelAndView mainpageController(){
+        User user = (User) session.getAttribute("user");
         ModelAndView mav = new ModelAndView("mainpage");
+        mav.addObject("user",user);
+        Integer follows = userService.selectFollows(user.getUserId());
+        Integer fans = userService.selectFans(user.getUserId());
+        Integer SCs = userService.selectscs(user.getUserId());
+        List<SChicken> followsSC = schickenService.selectFollowsSCByUserId(user.getUserId());
+        System.out.println(followsSC.get(0).getCommentsList().size());
+        mav.addObject("followsSC",followsSC);
+        mav.addObject("fans",fans);
+        mav.addObject("follows",follows);
+        mav.addObject("SCs",SCs);
         return mav;
     }
+
+    @RequestMapping(value = "/logout.do", method = RequestMethod.GET)
+    public ModelAndView logoutController(){
+        ModelAndView mav = new ModelAndView("hello");
+        session.removeAttribute("user");
+        session.removeAttribute("loginright");
+        session.setAttribute("loginflag",0);
+        return mav;
+    }
+
+    @RequestMapping(value = "/sendsc.do", method = RequestMethod.POST)
+    public String sendscController(HttpServletRequest request,String scinfo) throws IOException {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = multipartRequest.getFile("scimg");
+        if (!file.isEmpty()){
+            String path = "D:\\Better\\IDEA\\ssm\\src\\main\\webapp\\resources\\img";
+            String fileName = file.getOriginalFilename();
+            File dir = new File(path, fileName);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            file.transferTo(dir);
+            User user = (User) session.getAttribute("user");
+            SChicken sc = new SChicken();
+            Picture picture = new Picture();
+            picture.setPictureUserId(user.getUserId());
+            picture.setPictureUrl("resources/img/"+fileName);
+            pictureService.insertSelectPicture(picture);
+            picture = pictureService.selectPictureByName(fileName);
+            sc.setScUserId(user.getUserId());
+            sc.setScInfo(scinfo);
+            sc.setScDate(new Date());
+            sc.setScLike(0);
+            sc.setScComments(0);
+            sc.setScPictureId(picture.getPictureId());
+            schickenService.insertSC(sc);
+            return "redirect:mainpage.do";
+        }else{
+            User user = (User) session.getAttribute("user");
+            SChicken sc = new SChicken();
+            sc.setScUserId(user.getUserId());
+            sc.setScInfo(scinfo);
+            sc.setScDate(new Date());
+            sc.setScLike(0);
+            sc.setScComments(0);
+            schickenService.insertSC(sc);
+            return "redirect:mainpage.do";
+        }
+    }
+
 }

@@ -6,6 +6,8 @@ import zust.dao.UserMapper;
 import zust.model.User;
 import zust.service.UserService;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -17,7 +19,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public User selectUserByUserName(String username) {
+    public User selectByUserName(String username) {
         User user = userMapper.selectByUserName(username);
         return user;
     }
@@ -31,4 +33,25 @@ public class UserServiceImpl implements UserService {
         Integer fans = userMapper.selectFans(userId);
         return fans;
     }
+
+    public Integer selectscs(Integer userId) {
+        Integer scs = userMapper.selectscs(userId);
+        return scs;
+    }
+
+    public List<User> selectFansUserList(Integer userId) {
+        List<User> userList = userMapper.selectFansUserList(userId);
+        return userList;
+    }
+
+    public List<User> selectFollowsUserList(Integer userId) {
+        List<User> followList = userMapper.selectFollowsUserList(userId);
+        return followList;
+    }
+
+    public int updateByPrimaryKeySelective(User record){
+        return userMapper.updateByPrimaryKeySelective(record);
+    }
+
+
 }

@@ -18,4 +18,6 @@ public interface PictureMapper {
     int updateByPrimaryKey(Picture record);
 
     List<Picture> selectAllPicture();
+
+    Picture selectByPictureName(String pictureName);
 }

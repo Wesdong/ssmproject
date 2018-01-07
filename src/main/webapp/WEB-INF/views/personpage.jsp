@@ -28,17 +28,18 @@
     <p>@${user.userName}</p>
     <!--微博体-->
     <div>
-        <c:forEach var="sc" items="${user.scList}">
-            <img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>">
-            <c:out value="${sc.user.userRealname}"/>
-            @<c:out value="${sc.user.userAccount}"/>
-            <c:out value="${sc.scInfo}"/>
-            <c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if>
-            likes<c:out value="${sc.scLike}"/>
-            comments<c:out value="${sc.scComments}"/>
-            message
-        </c:forEach>
+        <c:if test="${user.scList != null}">
+            <c:forEach var="sc" items="${user.scList}">
+                <img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>">
+                <c:out value="${sc.user.userRealname}"/>
+                @<c:out value="${sc.user.userAccount}"/>
+                <c:out value="${sc.scInfo}"/>
+                <c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if>
+                likes<c:out value="${sc.scLike}"/>
+                comments<c:out value="${sc.scComments}"/>
+                message
+            </c:forEach>
+        </c:if>
     </div>
-
 </body>
 </html>

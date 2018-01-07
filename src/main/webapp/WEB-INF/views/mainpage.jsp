@@ -1,3 +1,7 @@
+<%@ page import="zust.model.SChicken" %>
+<%@ page import="zust.service.SchickenService" %>
+<%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
+<%@ page import="zust.service.Impl.SchickenServiceImpl" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -12,6 +16,26 @@
     <title>SChicken主页</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mainpage.css">
 </head>
+<script>
+    function likesup(scId) {
+        var likescount = document.getElementById("likescount");
+        likescount.innerText = (likescount.innerText*1.0 + 1)+"";
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+        {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.open("GET","${pageContext.servletContext.contextPath}/WEB-INF/views/dolikes.jsp?scId="+scId,true);
+        xmlhttp.send();
+
+    }
+</script>
 <body>
     <!--顶部条-->
     <a href="/ssm/mainpage.do">主页</a>
@@ -50,25 +74,31 @@
             <p>撰写新SChicken</p>
             <form method="post" action="/ssm/sendsc.do" enctype="multipart/form-data">
                 <input type="text" name="scinfo" />
-                <input type="file" name="scimg" />
+                <c:if test="${user.userinfo.userinfoVip == 1}">
+                    <input type="file" name="scimg" />
+                </c:if>
                 <input type="submit" value="发送">
             </form>
         </div>
     </div>
     <!--微博体-->
     <div>
-        <c:forEach var="sc" items="${followsSC}">
-            <img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>">
-            <c:out value="${sc.user.userRealname}"/>
-            @<c:out value="${sc.user.userName}"/>
-            <c:out value="${sc.scInfo}"/>
-            <c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if>
-            likes<c:out value="${sc.scLike}"/>
-            comments<c:out value="${sc.scComments}"/>
-            message
-            <br>
-        </c:forEach>
+        <c:if test="${followsSC != null}">
+            <c:forEach var="sc" items="${followsSC}">
+                <img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>">
+                <c:out value="${sc.user.userRealname}"/>
+                <c:if test="${user.userinfo.userinfoVip == 1}">
+                    V
+                </c:if>
+                @<c:out value="${sc.user.userName}"/>
+                <c:out value="${sc.scInfo}"/>
+                <c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if>
+                <a onclick="likesup(${sc.scId})" href="">likes<font id="likescount"><c:out value="${sc.scLike}"/></font></a>
+                comments<c:out value="${sc.scComments}"/>
+                message
+                <br>
+            </c:forEach>
+        </c:if>
     </div>
-
 </body>
 </html>

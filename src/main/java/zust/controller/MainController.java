@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,6 +14,7 @@ import sun.util.calendar.BaseCalendar;
 import zust.model.Picture;
 import zust.model.SChicken;
 import zust.model.User;
+import zust.model.Userinfo;
 import zust.service.PictureService;
 import zust.service.SchickenService;
 import zust.service.UserService;
@@ -21,6 +23,7 @@ import zust.service.UserinfoService;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -61,7 +64,11 @@ public class MainController {
     public ModelAndView signupController(User user,String gender){
         ModelAndView mav = new ModelAndView("signup");
         user.setUserGender(gender);
+        Userinfo userinfo = new Userinfo();
+        userinfo.setUserinfoPicurl("D:\\Better\\IDEA\\ssm\\src\\main\\webapp\\resources\\img\\dog.png");
+        user.setUserinfo(userinfo);
         userService.insertUser(user);
+        user = userService.selectByUserName(user.getUserAccount());
         mav.addObject("user",user);
         session.setAttribute("user",user);
         session.setAttribute("loginflag",1);
@@ -89,6 +96,9 @@ public class MainController {
         ModelAndView mav = new ModelAndView("personpage");
         ModelAndView error = new ModelAndView("hello");
         User user = userService.selectByUserName(username);
+        if(user.getScList().get(0).getScId() == null){
+            user.setScList(null);
+        }
         Integer follows = userService.selectFollows(user.getUserId());
         Integer fans = userService.selectFans(user.getUserId());
         if (user == null){
@@ -119,7 +129,6 @@ public class MainController {
         Integer fans = userService.selectFans(user.getUserId());
         Integer SCs = userService.selectscs(user.getUserId());
         List<SChicken> followsSC = schickenService.selectFollowsSCByUserId(user.getUserId());
-        System.out.println(followsSC.get(0).getCommentsList().size());
         mav.addObject("followsSC",followsSC);
         mav.addObject("fans",fans);
         mav.addObject("follows",follows);
@@ -176,4 +185,11 @@ public class MainController {
         }
     }
 
+    @RequestMapping(value = "/likes.do",method = RequestMethod.GET)
+    public void likes(String scId, HttpServletRequest request, HttpServletResponse response){
+        System.out.println(scId);
+        SChicken sChicken = schickenService.selectByPK(Integer.parseInt(scId));
+        sChicken.setScLike(sChicken.getScLike() + 1);
+        schickenService.updateSchicken(sChicken);
+    }
 }

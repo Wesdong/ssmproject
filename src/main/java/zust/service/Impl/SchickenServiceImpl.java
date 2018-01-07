@@ -43,6 +43,10 @@ public class SchickenServiceImpl implements SchickenService {
         return  sChickenList;
     }
 
+    public void updateSchicken(SChicken sChicken) {
+        sChickenMapper.updateByPrimaryKeySelective(sChicken);
+    }
+
     public SChicken selectByPK(int id) {
         return sChickenMapper.selectByPrimaryKey(id);
     }

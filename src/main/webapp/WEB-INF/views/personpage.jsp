@@ -48,20 +48,21 @@
             <font class="username">@${user.userName}</font>
         </div>
         <div class="right">
-
-            <c:forEach var="sc" items="${user.scList}">
-                <div class="detail1" data-toggle="modal" data-target="#myModal">
-                    <div class="img1"><img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>"></div>
-                    <div class="text1"><p><font class="name1"><c:out value="${sc.user.userRealname}"/></font></p>
-                        <font class="name2">@<c:out value="${sc.user.userAccount}"/></font></div>
-                    <p class="p1"><c:out value="${sc.scInfo}"/></p>
-                    <div class="img"><c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if></div>
-                    likes<c:out value="${sc.scLike}"/>
-                    comments<c:out value="${sc.scComments}"/>
-                    message
-                    <br>
-                </div>
-            </c:forEach>
+            <c:if test="${user.scList != null} ">
+                <c:forEach var="sc" items="${user.scList}">
+                    <div class="detail1" data-toggle="modal" data-target="#myModal">
+                        <div class="img1"><img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>"></div>
+                        <div class="text1"><p><font class="name1"><c:out value="${sc.user.userRealname}"/></font></p>
+                            <font class="name2">@<c:out value="${sc.user.userAccount}"/></font></div>
+                        <p class="p1"><c:out value="${sc.scInfo}"/></p>
+                        <div class="img"><c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if></div>
+                        likes<c:out value="${sc.scLike}"/>
+                        comments<c:out value="${sc.scComments}"/>
+                        message
+                        <br>
+                    </div>
+                </c:forEach>
+            </c:if>
 
         </div>
 

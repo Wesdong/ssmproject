@@ -48,7 +48,7 @@
             <font class="username">@${user.userName}</font>
         </div>
         <div class="right">
-            <c:if test="${user.scList != null} ">
+            <c:if test="${user.scList != null}">
                 <c:forEach var="sc" items="${user.scList}">
                     <div class="detail1" data-toggle="modal" data-target="#myModal">
                         <div class="img1"><img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>"></div>
@@ -63,7 +63,6 @@
                     </div>
                 </c:forEach>
             </c:if>
-
         </div>
 
     </div>

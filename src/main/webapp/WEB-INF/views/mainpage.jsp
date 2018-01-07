@@ -15,25 +15,23 @@
 <head>
     <title>SChicken主页</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mainpage.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <script>
     function likesup(scId) {
         var likescount = document.getElementById("likescount");
         likescount.innerText = (likescount.innerText*1.0 + 1)+"";
-        var xmlhttp;
-        if (window.XMLHttpRequest)
-        {
-            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-            xmlhttp=new XMLHttpRequest();
-        }
-        else
-        {
-            // IE6, IE5 浏览器执行代码
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.open("GET","${pageContext.servletContext.contextPath}/WEB-INF/views/dolikes.jsp?scId="+scId,true);
-        xmlhttp.send();
-
+        $.ajax({
+            type:"GET",
+            url:"/ssm/likes.do",
+            data:{"scId":$("font[name='likescount']")},
+            success: function (data) {      //成功，回调函数
+                alert(data.result);
+            },
+            error: function (er) {          //失败，回调函数
+                alert(er);
+            }
+        });
     }
 </script>
 <body>
@@ -93,7 +91,7 @@
                 @<c:out value="${sc.user.userName}"/>
                 <c:out value="${sc.scInfo}"/>
                 <c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if>
-                <a onclick="likesup(${sc.scId})" href="">likes<font id="likescount"><c:out value="${sc.scLike}"/></font></a>
+                <a name href="">likes<font name="likescount"><c:out value="${sc.scLike}"/></font></a>
                 comments<c:out value="${sc.scComments}"/>
                 message
                 <br>

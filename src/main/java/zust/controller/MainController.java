@@ -1,11 +1,13 @@
 package zust.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -186,10 +188,14 @@ public class MainController {
     }
 
     @RequestMapping(value = "/likes.do",method = RequestMethod.GET)
-    public void likes(String scId, HttpServletRequest request, HttpServletResponse response){
+    @ResponseBody
+    public JSONObject likes(@RequestParam("scId") String scId){
+        JSONObject jsonObject = new JSONObject();
         System.out.println(scId);
         SChicken sChicken = schickenService.selectByPK(Integer.parseInt(scId));
         sChicken.setScLike(sChicken.getScLike() + 1);
         schickenService.updateSchicken(sChicken);
+        jsonObject.put("result","ok");
+        return jsonObject;
     }
 }

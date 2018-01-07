@@ -14,7 +14,25 @@
     <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
+<script>
+    function likesup(scId) {
+        var likescount = document.getElementById("likescount");
+        likescount.innerText = (likescount.innerText*1.0 + 1)+"";
+        $.ajax({
+            type:"GET",
+            url:"/ssm/likes.do",
+            data:{"scId":$("font[name='likescount']")},
+            success: function (data) {      //成功，回调函数
+                alert(data.result);
+            },
+            error: function (er) {          //失败，回调函数
+                alert(er);
+            }
+        });
+    }
+</script>
 <body>
     <!--顶部条-->
 
@@ -59,24 +77,31 @@
             <p>撰写新SChicken</p>
             <form method="post" action="/ssm/sendsc.do" enctype="multipart/form-data">
                 <input type="text" name="scinfo" />
-                <input type="file" name="scimg" />
+                <c:if test="${user.userinfo.userinfoVip == 1}">
+                    <input type="file" name="scimg" />
+                </c:if>
                 <input type="submit" value="发送">
             </form>
         </div>
     </div>
     <!--微博体-->
     <div>
-        <c:forEach var="sc" items="${followsSC}">
-            <img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>">
-            <c:out value="${sc.user.userRealname}"/>
-            @<c:out value="${sc.user.userName}"/>
-            <c:out value="${sc.scInfo}"/>
-            <c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if>
-            likes<c:out value="${sc.scLike}"/>
-            comments<c:out value="${sc.scComments}"/>
-            message
-            <br>
-        </c:forEach>
+        <c:if test="${followsSC != null}">
+            <c:forEach var="sc" items="${followsSC}">
+                <img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>">
+                <c:out value="${sc.user.userRealname}"/>
+                <c:if test="${user.userinfo.userinfoVip == 1}">
+                    V
+                </c:if>
+                @<c:out value="${sc.user.userName}"/>
+                <c:out value="${sc.scInfo}"/>
+                <c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if>
+                <a name href="">likes<font name="likescount"><c:out value="${sc.scLike}"/></font></a>
+                comments<c:out value="${sc.scComments}"/>
+                message
+                <br>
+            </c:forEach>
+        </c:if>
     </div>
 
 </body>

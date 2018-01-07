@@ -13,5 +13,6 @@ public interface SchickenService {
     public List<SChicken> selectBYTIME();
     public PageInfo<SChicken> selectByInfo(String what2search,int pageNum, int pageSize);
     public void insertSC(SChicken sc);
-    List<SChicken> selectFollowsSCByUserId(int userId);
+    public  List<SChicken> selectFollowsSCByUserId(int userId);
+    public void updateSchicken(SChicken sChicken);
 }

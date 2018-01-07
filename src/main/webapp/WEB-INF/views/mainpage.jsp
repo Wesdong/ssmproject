@@ -11,17 +11,26 @@
 <head>
     <title>SChicken主页</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mainpage.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
     <!--顶部条-->
-    <a href="/ssm/mainpage.do">主页</a>
-    <a href="/ssm/visit.do">游客</a>
-    <a href="/ssm/message.do">私信</a>
-    <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png">
-    <form method="get" action="/ssm/search.do">
-        <input type="text" name="what2search" >
-        <input type="submit" value="搜索" >
-    </form>
+
+    <div class="menu">
+        <ul>
+            <li><a href="/ssm/index.do" >主页</a></li>
+            <li><a href="/ssm/visit.do">游客</a></li>
+            <li><a href="/ssm/message.do">私信</a></li>
+        </ul>
+        <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png" >
+        <form method="get" action="/ssm/search.do">
+            <input type="text" name="what2search" class="a">
+            <input type="submit" value="搜索" class="b">
+        </form>
+
+    </div>
     <!--头像-->
     <img src="${user.userinfo.userinfoPicurl}"/>
     <!--头像右边栏-->

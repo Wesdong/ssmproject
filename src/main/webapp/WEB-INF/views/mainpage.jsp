@@ -17,21 +17,6 @@
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <script>
-    function likesup(scId) {
-        var likescount = document.getElementById("likescount");
-        likescount.innerText = (likescount.innerText*1.0 + 1)+"";
-        $.ajax({
-            type:"GET",
-            url:"/ssm/likes.do",
-            data:{"scId":$("font[name='likescount']")},
-            success: function (data) {      //成功，回调函数
-                alert(data.result);
-            },
-            error: function (er) {          //失败，回调函数
-                alert(er);
-            }
-        });
-    }
 </script>
 <body>
     <!--顶部条-->
@@ -39,7 +24,6 @@
     <div class="menu">
         <ul>
             <li><a href="/ssm/index.do" >主页</a></li>
-            <li><a href="/ssm/visit.do">游客</a></li>
             <li><a href="/ssm/message.do">私信</a></li>
         </ul>
         <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png" >
@@ -56,7 +40,7 @@
     <a href="/ssm/follow.do">正在关注</a>${follows}
     <a href="/ssm/fans.do">关注者</a>${fans}
     <!--头像下栏-->
-    <p>${user.userRealname}</p>
+    <a href="/ssm/personpage.do">${user.userRealname}</a>
     <p>@${user.userName}</p>
     <!--注销-->
     <div>
@@ -72,14 +56,12 @@
     </div>
     <!--发微博-->
     <div>
-        <input type="text"><img src="">
+        <img src="">
         <div>
             <p>撰写新SChicken</p>
             <form method="post" action="/ssm/sendsc.do" enctype="multipart/form-data">
                 <input type="text" name="scinfo" />
-                <c:if test="${user.userinfo.userinfoVip == 1}">
-                    <input type="file" name="scimg" />
-                </c:if>
+                <input type="file" name="scimg" <c:if test="${user.userinfo.userinfoVip != 1}">style="display:none"</c:if>/>
                 <input type="submit" value="发送">
             </form>
         </div>
@@ -96,8 +78,24 @@
                 @<c:out value="${sc.user.userName}"/>
                 <c:out value="${sc.scInfo}"/>
                 <c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if>
-                <a name href="">likes<font name="likescount"><c:out value="${sc.scLike}"/></font></a>
+                <a href="/ssm/likes.do?scId=${sc.scId}">likes<font><c:out value="${sc.scLike}"/></font></a>
                 comments<c:out value="${sc.scComments}"/>
+                <!--评论区-->
+                <div>
+                    <p>回复${sc.user.userRealname}</p>
+                    <div>
+                        <c:forEach var="comment" items="${sc.commentsList}">
+                            <p>Schicken${comment.commentsUserId}:${comment.commentsInfo}</p>
+                        </c:forEach>
+                        <p>回复@${sc.user.userName}</p>
+                        <form action="/ssm/sendcomment.do" method="get">
+                            <input type="text" value="${sc.scId}" name="scid" hidden="hidden">
+                            <input type="text" value="${user.userId}" name="commentuserid" hidden="hidden">
+                            <input type="text" name="commentinfo">
+                            <input type="submit" value="回复">
+                        </form>
+                    </div>
+                </div>
                 message
                 <br>
             </c:forEach>

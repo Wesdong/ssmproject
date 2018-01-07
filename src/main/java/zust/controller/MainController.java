@@ -13,14 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import sun.util.calendar.BaseCalendar;
-import zust.model.Picture;
-import zust.model.SChicken;
-import zust.model.User;
-import zust.model.Userinfo;
-import zust.service.PictureService;
-import zust.service.SchickenService;
-import zust.service.UserService;
-import zust.service.UserinfoService;
+import zust.model.*;
+import zust.service.*;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
@@ -34,6 +28,9 @@ import java.util.List;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    CommentsService commentsService;
 
     @Autowired
     PictureService pictureService;
@@ -188,14 +185,36 @@ public class MainController {
     }
 
     @RequestMapping(value = "/likes.do",method = RequestMethod.GET)
-    @ResponseBody
-    public JSONObject likes(@RequestParam("scId") String scId){
-        JSONObject jsonObject = new JSONObject();
-        System.out.println(scId);
+    public String likesController(String scId){
         SChicken sChicken = schickenService.selectByPK(Integer.parseInt(scId));
         sChicken.setScLike(sChicken.getScLike() + 1);
         schickenService.updateSchicken(sChicken);
-        jsonObject.put("result","ok");
-        return jsonObject;
+        return "redirect:mainpage.do";
+    }
+
+    @RequestMapping(value = "/sendcomment.do",method = RequestMethod.GET)
+    public String sendCommentController(String commentinfo,String commentuserid,String scid){
+        Comments comments = new Comments();
+        comments.setCommentsInfo(commentinfo);
+        comments.setCommentsScId(Integer.parseInt(scid));
+        comments.setCommentsUserId(Integer.parseInt(commentuserid));
+        comments.setCommentsDate(new Date());
+        SChicken sChicken = schickenService.selectByPK(Integer.parseInt(scid));
+        sChicken.setScComments(sChicken.getScComments()+1);
+        schickenService.updateSchicken(sChicken);
+        commentsService.insertComment(comments);
+        return "redirect:mainpage.do";
+    }
+
+    @RequestMapping(value = "/personpage.do",method = RequestMethod.GET)
+    public ModelAndView personpageController(){
+        ModelAndView mav = new ModelAndView("personpage");
+        User user = (User) session.getAttribute("user");
+        Integer follows = userService.selectFollows(user.getUserId());
+        Integer fans = userService.selectFans(user.getUserId());
+        mav.addObject("user",user);
+        mav.addObject("fans",fans);
+        mav.addObject("follows",follows);
+        return mav;
     }
 }

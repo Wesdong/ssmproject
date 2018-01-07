@@ -33,7 +33,7 @@
         });
     }
 </script>
-<body>
+<body style="background-color:#f2f2f2">
     <!--顶部条-->
 
     <div class="menu">
@@ -49,60 +49,94 @@
         </form>
 
     </div>
-    <!--头像-->
-    <img src="${user.userinfo.userinfoPicurl}"/>
-    <!--头像右边栏-->
-    <a href="">推文</a>${SCs}
-    <a href="/ssm/follow.do">正在关注</a>${follows}
-    <a href="/ssm/fans.do">关注者</a>${fans}
-    <!--头像下栏-->
-    <p>${user.userRealname}</p>
-    <p>@${user.userName}</p>
+    <div class="wrap">
+        <div class="right">
+            <div>
+                <input type="text"><img src="">
+                <div>
+                    <p>撰写新SChicken</p>
+                    <form method="post" action="/ssm/sendsc.do" enctype="multipart/form-data">
+                        <input type="text" name="scinfo" />
+                        <c:if test="${user.userinfo.userinfoVip == 1}">
+                            <input type="file" name="scimg" />
+                        </c:if>
+                        <input type="submit" value="发送">
+                    </form>
+                </div>
+            </div>
+            <!--微博体-->
+            <div>
+                <c:if test="${followsSC != null}">
+                    <c:forEach var="sc" items="${followsSC}">
+                        <img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>">
+                        <c:out value="${sc.user.userRealname}"/>
+                        <c:if test="${user.userinfo.userinfoVip == 1}">
+                            V
+                        </c:if>
+                        @<c:out value="${sc.user.userName}"/>
+                        <c:out value="${sc.scInfo}"/>
+                        <c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if>
+                        <a name href="">likes<font name="likescount"><c:out value="${sc.scLike}"/></font></a>
+                        comments<c:out value="${sc.scComments}"/>
+                        message
+                        <br>
+                    </c:forEach>
+                </c:if>
+            </div>
+
+        </div>
+    <div class="left">
+        <div class="left1">
+       <div class="blueline"></div>
+            <div class="whiteline">
+                <p><font class="name1">${user.userRealname}</font></p>
+                <p><font class="name2">@${user.userName}</font></p>
+            </div>
+            <div class="whiteline1">
+                <ul>
+                    <li><a href="">推文</a><font class="number1" >${SCs}</font></li>
+                    <li><a href="/ssm/follow.do">正在关注</a><font class="number2">${follows}</font></li>
+                    <li><a href="/ssm/fans.do">关注者</a><font class="number3">${fans}</font></li>
+                </ul>
+            </div>
+
+
+            <div class="circle"><img src="${user.userinfo.userinfoPicurl}"/></div>
+        </div>
     <!--注销-->
-    <div>
-        <a href="/ssm/logout.do">注销</a>
-        <p>你是否想发图文微博</p>
-        <a href="">立刻成为VIP SChicken</a>
+    <div class="left2">
+        <p><a href="/ssm/logout.do" class="button">注销</a></p>
+        <p><font class="text1">你是否想发图文微博</font></p>
+        <a href="" class="button1" data-toggle="modal" data-target="#myModal">立刻成为VIP SChicken</a>
+    </div>
         <div>
             <p>立刻成为vip Schicken</p>
             <p>vip价格:5$/月</p>
             <img src="${pageContext.servletContext.contextPath}/resources/img/pay.png">
             <button>我已付款</button>
         </div>
-    </div>
-    <!--发微博-->
-    <div>
-        <input type="text"><img src="">
-        <div>
-            <p>撰写新SChicken</p>
-            <form method="post" action="/ssm/sendsc.do" enctype="multipart/form-data">
-                <input type="text" name="scinfo" />
-                <c:if test="${user.userinfo.userinfoVip == 1}">
-                    <input type="file" name="scimg" />
-                </c:if>
-                <input type="submit" value="发送">
-            </form>
-        </div>
-    </div>
-    <!--微博体-->
-    <div>
-        <c:if test="${followsSC != null}">
-            <c:forEach var="sc" items="${followsSC}">
-                <img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>">
-                <c:out value="${sc.user.userRealname}"/>
-                <c:if test="${user.userinfo.userinfoVip == 1}">
-                    V
-                </c:if>
-                @<c:out value="${sc.user.userName}"/>
-                <c:out value="${sc.scInfo}"/>
-                <c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if>
-                <a name href="">likes<font name="likescount"><c:out value="${sc.scLike}"/></font></a>
-                comments<c:out value="${sc.scComments}"/>
-                message
-                <br>
-            </c:forEach>
-        </c:if>
+
     </div>
 
+
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

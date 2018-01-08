@@ -21,7 +21,6 @@
 <div class="menu">
     <ul>
         <li><a href="/ssm/mainpage.do">主页</a></li>
-        <li><a href="/ssm/message.do">私信</a></li>
     </ul>
     <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png">
     <form method="get" action="/ssm/search.do">
@@ -65,7 +64,6 @@
                         </form>
                     </div>
                 </div>
-                message
                 <br>
             </div>
         </c:forEach>
@@ -89,7 +87,6 @@
                         <div class="img"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></div>
                         likes<c:out value="${sc.scLike}"/>
                         comments<c:out value="${sc.scComments}"/>
-                        message
                         <br>
                     </div>
                 </c:forEach>

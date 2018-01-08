@@ -194,3 +194,9 @@ input.button2{
     left: 13%;
     font-family: 微软雅黑;
 }
+.english{
+    position: absolute;
+    left: 45%;
+    bottom: 6%;
+    color: white;
+}

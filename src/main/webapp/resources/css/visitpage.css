@@ -94,6 +94,10 @@ input.b{
     text-align: center;
     margin-top: 3%;
 }
+.img img{
+    max-height:530px;
+    max-width: 530px;
+}
 .detail p{
     margin-left: 3%;
     margin-right: 3%;

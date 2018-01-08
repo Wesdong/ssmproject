@@ -68,7 +68,7 @@
         </div>
     </div>
 </div>
-<p>@SChicken</p>
+<p class="english">@SChicken</p>
 </body>
 </html>
 

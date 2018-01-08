@@ -1,5 +1,7 @@
 package zust.model;
 
+import java.util.List;
+
 public class Relation {
     private Integer relationId;
 
@@ -8,6 +10,12 @@ public class Relation {
     private Integer relatedUserId;
 
     private Integer relationType;
+
+    private List<User> userList;
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
 
     public Integer getRelationId() {
         return relationId;

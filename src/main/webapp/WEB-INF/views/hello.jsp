@@ -55,6 +55,7 @@
                 <input type="checkbox" class="c"><font style="font-family: 微软雅黑" class="f">记住我</font>
                 <input type="submit" value="登录" class="button1">
             </form>
+            <button>管理员入口</button>
         </div>
         <div id="right2">
             <form method="get" action="/ssm/register.do" >
@@ -68,6 +69,11 @@
         </div>
     </div>
 </div>
+<form method="post" action="/ssm/adminlogin.do">
+    <p><input type="text" name="account" placeholder="用户名" class="a"></p>
+    <p><input type="password" name="psw" placeholder="密码" class="b"></p>
+    <input type="submit" value="登录" class="button1">
+</form>
 <p class="english">@SChicken</p>
 </body>
 </html>

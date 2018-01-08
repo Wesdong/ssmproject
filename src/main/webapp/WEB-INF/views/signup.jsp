@@ -39,10 +39,10 @@
     </div>
     <div id="right">
         <ul>
-            <li><img src="image1.jpg" alt="" class="image1"></li>
-            <li><img src="image2.jpg" alt="" class="image2"></li>
-            <li><img src="image3.jpg" alt="" class="image3"></li>
-            <li><img src="image4.jpg" alt="" class="image4"></li>
+            <li><img src="${pageContext.servletContext.contextPath}/resources/img/drive.jpg" alt="" class="image1"></li>
+            <li><img src="${pageContext.servletContext.contextPath}/resources/img/football.jpg" alt="" class="image2"></li>
+            <li><img src="${pageContext.servletContext.contextPath}/resources/img/dj.jpg" alt="" class="image3"></li>
+            <li><img src="${pageContext.servletContext.contextPath}/resources/img/movie.jpg" alt="" class="image4"></li>
         </ul>
     </div>
 </div>

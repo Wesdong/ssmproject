@@ -20,4 +20,6 @@ public interface PictureMapper {
     List<Picture> selectAllPicture();
 
     Picture selectByPictureName(String pictureName);
+
+    void deleteByScPk(int scId);
 }

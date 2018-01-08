@@ -102,16 +102,69 @@
     user_id, user_account, user_password, user_name, user_gender, user_realname
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from user
-    where user_id = #{userId,jdbcType=INTEGER}
+    SELECT
+    `user`.user_id,
+    userinfo.userinfo_id,
+    userinfo.userinfo_picurl,
+    userinfo.userinfo_vip,
+    userinfo.userinfo_statement,
+    userinfo.userinfo_birth,
+    `user`.user_account,
+    `user`.user_password,
+    `user`.user_name,
+    `user`.user_gender,
+    `user`.user_realname
+    FROM
+    `user`
+    LEFT JOIN userinfo ON userinfo.userinfo_id = `user`.user_id
+    WHERE
+    `user`.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByAnyName" parameterType="zust.model.User" resultMap="BaseResultMap">
+    SELECT
+      `user`.user_id,
+      `user`.user_account,
+      `user`.user_password,
+      `user`.user_name,
+      `user`.user_gender,
+      `user`.user_realname,
+      userinfo.userinfo_id,
+      userinfo.userinfo_birth,
+      userinfo.userinfo_picurl,
+      userinfo.userinfo_vip,
+      userinfo.userinfo_statement
+      FROM
+      `user`
+      LEFT JOIN userinfo ON userinfo.userinfo_id = `user`.user_id
+      WHERE
+      (`user`.user_account like #{arg0,jdbcType=VARCHAR} OR
+      `user`.user_name like #{arg0,jdbcType=VARCHAR} OR
+      `user`.user_realname like #{arg0,jdbcType=VARCHAR}) and
+      (user_id not in (select user.user_id from user,relation where relation.related_user_id = #{arg1,jdbcType=INTEGER}
+          and relation.relation_user_id = user_id))
   </select>
   <select id="selectFollows" parameterType="java.lang.Integer" resultType="Integer">
     select
     count(*)
     from user,relation
     where user_id = #{userId,jdbcType=INTEGER} AND user.user_id = relation.related_user_id
+  </select>
+  <select id="AllUser" parameterType="zust.model.User" resultMap="BaseResultMap">
+    SELECT
+    `user`.user_id,
+    `user`.user_account,
+    `user`.user_password,
+    `user`.user_name,
+    `user`.user_gender,
+    `user`.user_realname,
+    userinfo.userinfo_id,
+    userinfo.userinfo_picurl,
+    userinfo.userinfo_vip,
+    userinfo.userinfo_statement,
+    userinfo.userinfo_birth
+    FROM
+    `user`
+    Left JOIN userinfo ON userinfo.userinfo_id = `user`.user_id
   </select>
   <select id="selectscs" parameterType="java.lang.Integer" resultType="Integer">
     SELECT
@@ -121,6 +174,48 @@
     INNER JOIN relation ON relation.relation_user_id = `user`.user_id
     WHERE
     `user`.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectFansByUserId" parameterType="zust.model.User" resultMap="BaseResultMap">
+    SELECT
+    `user`.user_id,
+    `user`.user_account,
+    `user`.user_password,
+    `user`.user_name,
+    `user`.user_gender,
+    `user`.user_realname,
+    userinfo.userinfo_id,
+    userinfo.userinfo_picurl,
+    userinfo.userinfo_vip,
+    userinfo.userinfo_statement,
+    userinfo.userinfo_birth
+    FROM
+    `user`
+    LEFT JOIN userinfo ON userinfo.userinfo_id = `user`.user_id
+    WHERE
+    user_id = #{userId,jdbcType=INTEGER} or user_id in
+    (select user.user_id from user,relation where relation.related_user_id = #{userId,jdbcType=INTEGER}
+    and relation.relation_user_id = user_id)
+  </select>
+  <select id="selectFollowsByUserId" parameterType="zust.model.User" resultMap="BaseResultMap">
+    SELECT
+    `user`.user_id,
+    `user`.user_account,
+    `user`.user_password,
+    `user`.user_name,
+    `user`.user_gender,
+    `user`.user_realname,
+    userinfo.userinfo_id,
+    userinfo.userinfo_picurl,
+    userinfo.userinfo_vip,
+    userinfo.userinfo_statement,
+    userinfo.userinfo_birth
+    FROM
+    `user`
+    LEFT JOIN userinfo ON userinfo.userinfo_id = `user`.user_id
+    WHERE
+    user_id = #{userId,jdbcType=INTEGER} or user_id in
+    (select user.user_id from user,relation where relation.relation_user_id = #{userId,jdbcType=INTEGER}
+    and relation.related_user_id = user_id)
   </select>
   <select id="selectFans" parameterType="java.lang.Integer" resultType="Integer">
     select

@@ -10,4 +10,5 @@ public interface PictureService {
     public List<Picture> GetPicture();
     public void insertSelectPicture(Picture picture);
     public Picture selectPictureByName(String pictureName);
+    void deleteByScPk(int scId);
 }

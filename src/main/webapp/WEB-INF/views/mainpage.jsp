@@ -49,8 +49,7 @@
 
     <div class="menu">
         <ul>
-            <li><a href="/ssm/index.do" >主页</a></li>
-            <li><a href="/ssm/visit.do">游客</a></li>
+            <li><a href="/ssm/mainpage.do" >主页</a></li>
             <li><a href="/ssm/message.do">私信</a></li>
         </ul>
         <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png" >
@@ -175,7 +174,6 @@
             </div>
         </div>
     </div>
-
 
 </body>
 </html>

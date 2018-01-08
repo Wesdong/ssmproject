@@ -6,4 +6,5 @@ import zust.model.Comments;
 @Service
 public interface CommentsService {
     public void insertComment(Comments comments);
+    void deleteByScId(int scId);
 }

@@ -60,6 +60,11 @@
 </div>
 <div class="wrap">
     <div class="main">
+        <form action="/ssm/searchUser.do" method="get">
+            <p>想要搜索的是用户?</p>
+            <input type="text" name="what2search">
+            <input type="submit" value="搜索">
+        </form>
         <c:forEach var="sc" items="${sclist.list}">
 
             <div class="detail1">

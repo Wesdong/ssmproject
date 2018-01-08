@@ -53,5 +53,43 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateByPrimaryKeySelective(record);
     }
 
+    public List<User> findfansListByUserId(int userId) {
+        List<User> fansList = userMapper.selectFansByUserId(userId);
+        for (int i = 0; i < fansList.size(); i++){
+            if (fansList.get(i).getUserId() == userId){
+                fansList.remove(i);
+            }
+        }
+        return fansList;
+    }
+
+    public List<User> findfollowsListByUserId(int userId) {
+        List<User> followsList = userMapper.selectFollowsByUserId(userId);
+        for (int i = 0; i < followsList.size(); i++){
+            if (followsList.get(i).getUserId() == userId){
+                followsList.remove(i);
+            }
+        }
+        return followsList;
+    }
+
+    public List<User> selectByAnyName(String name,int userid) {
+        name = "%" + name + "%";
+        List<User> userList = userMapper.selectByAnyName(name,userid);
+        return userList;
+    }
+
+    public List<User> AllUser() {
+        List<User> allUser = userMapper.AllUser();
+        return allUser;
+    }
+
+    public void deleteUserById(int userId) {
+        userMapper.deleteByPrimaryKey(userId);
+    }
+
+    public User selectByUserId(int userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
 
 }

@@ -15,4 +15,10 @@ public interface UserService {
     public List<User> selectFansUserList(Integer userId);
     List<User> selectFollowsUserList(Integer userId);
     int updateByPrimaryKeySelective(User record);
+    List<User> findfansListByUserId(int userId);
+    List<User> findfollowsListByUserId(int userId);
+    List<User> selectByAnyName(String name,int userId);
+    List<User> AllUser();
+    void deleteUserById(int userId);
+    User selectByUserId(int userId);
 }

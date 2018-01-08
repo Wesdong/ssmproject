@@ -21,7 +21,7 @@
 <body>
 
 <div class="menu">
-    <img src="image1.jpg">
+    <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png">
 </div>
 <div id="wrap">
     <div id="left">

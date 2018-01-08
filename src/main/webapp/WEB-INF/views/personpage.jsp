@@ -20,7 +20,6 @@
     <div class="menu">
         <ul>
             <li><a href="/ssm/mainpage.do" >主页</a></li>
-            <li><a href="/ssm/visit.do">游客</a></li>
             <li><a href="/ssm/message.do">私信</a></li>
         </ul>
         <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png" >
@@ -53,11 +52,27 @@
                     <div class="detail1" data-toggle="modal" data-target="#myModal">
                         <div class="img1"><img src="<c:out value="${pageContext.request.contextPath}/${sc.userinfo.userinfoPicurl}"/>"></div>
                         <div class="text1"><p><font class="name1"><c:out value="${sc.user.userRealname}"/></font></p>
-                            <font class="name2">@<c:out value="${sc.user.userAccount}"/></font></div>
+                            <font class="name2">@<c:out value="${sc.user.userName}"/></font></div>
                         <p class="p1"><c:out value="${sc.scInfo}"/></p>
                         <div class="img"><c:if test="${sc.scPictureId != null}"><img src="<c:out value="${pageContext.request.contextPath}/${sc.picture.pictureUrl}"/>"></c:if></div>
-                        likes<c:out value="${sc.scLike}"/>
+                        likes<font><c:out value="${sc.scLike}"/></font>
                         comments<c:out value="${sc.scComments}"/>
+                        <!--评论区-->
+                        <div>
+                            <p>回复${sc.user.userRealname}</p>
+                            <div>
+                                <c:forEach var="comment" items="${sc.commentsList}">
+                                    <p>Schicken${comment.commentsUserId}:${comment.commentsInfo}</p>
+                                </c:forEach>
+                                <p>回复@${sc.user.userName}</p>
+                                <form action="/ssm/sendcomment.do" method="get">
+                                    <input type="text" value="${sc.scId}" name="scid" hidden="hidden">
+                                    <input type="text" value="${user.userId}" name="commentuserid" hidden="hidden">
+                                    <input type="text" name="commentinfo">
+                                    <input type="submit" value="回复">
+                                </form>
+                            </div>
+                        </div>
                         message
                         <br>
                     </div>

@@ -14,4 +14,6 @@ public interface CommentsMapper {
     int updateByPrimaryKeySelective(Comments record);
 
     int updateByPrimaryKey(Comments record);
+
+    void deleteByScId(int scId);
 }

@@ -20,6 +20,10 @@
     delete from relation
     where relation_id = #{relationId,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByUserIdAndFollowerId">
+    delete from relation
+    where related_user_id = #{arg0,jdbcType=INTEGER} AND relation_user_id = #{arg1, jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="zust.model.Relation">
     insert into relation (relation_id, relation_user_id, related_user_id, 
       relation_type)

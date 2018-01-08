@@ -29,6 +29,10 @@
     delete from picture
     where picture_id = #{pictureId,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByScId" parameterType="java.lang.Integer">
+    delete from picture
+    where picture_id = #{scId,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="zust.model.Picture">
     insert into picture (picture_id, picture_user_id, picture_url
       )

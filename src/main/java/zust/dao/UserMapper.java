@@ -28,4 +28,12 @@ public interface UserMapper {
     List<User> selectFansUserList(Integer userId);
 
     List<User> selectFollowsUserList(Integer userId);
+
+    List<User> selectFansByUserId(int userId);
+
+    List<User> selectFollowsByUserId(int userId);
+
+    List<User> selectByAnyName(String name,int userId);
+
+    List<User> AllUser();
 }

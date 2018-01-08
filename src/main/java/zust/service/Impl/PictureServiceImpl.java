@@ -28,4 +28,8 @@ public class PictureServiceImpl implements PictureService {
         Picture picture = pictureMapper.selectByPictureName(pictureName);
         return picture;
     }
+
+    public void deleteByScPk(int scId) {
+        pictureMapper.deleteByScPk(scId);
+    }
 }

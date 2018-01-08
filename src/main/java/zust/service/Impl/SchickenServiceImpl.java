@@ -47,6 +47,10 @@ public class SchickenServiceImpl implements SchickenService {
         sChickenMapper.updateByPrimaryKeySelective(sChicken);
     }
 
+    public void deletscByPk(int scId) {
+        sChickenMapper.deleteByPrimaryKey(scId);
+    }
+
     public SChicken selectByPK(int id) {
         return sChickenMapper.selectByPrimaryKey(id);
     }

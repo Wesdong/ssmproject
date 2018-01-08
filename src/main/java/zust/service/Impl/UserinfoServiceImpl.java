@@ -15,4 +15,8 @@ public class UserinfoServiceImpl implements UserinfoService {
     public void InsertUserinfo(Userinfo userinfo) {
         userinfoMapper.insertSelective(userinfo);
     }
+
+    public void updateUserinfo(Userinfo userinfo) {
+        userinfoMapper.updateByPrimaryKeySelective(userinfo);
+    }
 }

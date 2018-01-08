@@ -21,6 +21,10 @@
     delete from comments
     where comments_id = #{commentsId,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByScId" parameterType="java.lang.Integer">
+    delete from comments
+    where comments_sc_id = #{scId,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="zust.model.Comments">
     insert into comments (comments_id, comments_user_id, comments_sc_id, 
       comments_info, comments_date)

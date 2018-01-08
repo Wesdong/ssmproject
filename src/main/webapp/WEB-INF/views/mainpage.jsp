@@ -23,7 +23,7 @@
 
     <div class="menu">
         <ul>
-            <li><a href="/ssm/index.do" >主页</a></li>
+            <li><a href="/ssm/mainpage.do" >主页</a></li>
             <li><a href="/ssm/message.do">私信</a></li>
         </ul>
         <img src="${pageContext.servletContext.contextPath}/resources/img/dog.png" >
@@ -37,8 +37,8 @@
     <img src="${user.userinfo.userinfoPicurl}"/>
     <!--头像右边栏-->
     <a href="">推文</a>${SCs}
-    <a href="/ssm/follow.do">正在关注</a>${follows}
-    <a href="/ssm/fans.do">关注者</a>${fans}
+    <a href="/ssm/fansfollow.do">正在关注</a>${follows}
+    <a href="/ssm/fansfollow.do">关注者</a>${fans}
     <!--头像下栏-->
     <a href="/ssm/personpage.do">${user.userRealname}</a>
     <p>@${user.userName}</p>
@@ -51,7 +51,7 @@
             <p>立刻成为vip Schicken</p>
             <p>vip价格:5$/月</p>
             <img src="${pageContext.servletContext.contextPath}/resources/img/pay.png">
-            <button>我已付款</button>
+            <a href="/ssm/becomevip.do?userId=${user.userId}">我已付款</a>
         </div>
     </div>
     <!--发微博-->

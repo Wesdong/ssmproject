@@ -15,4 +15,8 @@ public class CommentsServiceImpl implements CommentsService{
     public void insertComment(Comments comments) {
         commentsMapper.insertSelective(comments);
     }
+
+    public void deleteByScId(int scId) {
+        commentsMapper.deleteByScId(scId);
+    }
 }

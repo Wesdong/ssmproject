@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import sun.util.calendar.BaseCalendar;
+import zust.dao.RelationMapper;
 import zust.model.*;
 import zust.service.*;
 
@@ -28,6 +30,12 @@ import java.util.List;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    AdminService adminService;
+
+    @Autowired
+    RelationService relationService;
 
     @Autowired
     CommentsService commentsService;
@@ -68,6 +76,9 @@ public class MainController {
         user.setUserinfo(userinfo);
         userService.insertUser(user);
         user = userService.selectByUserName(user.getUserAccount());
+        userinfo.setUserinfoVip((byte) 0);
+        userinfo.setUserinfoId(user.getUserId());
+        userinfoService.InsertUserinfo(userinfo);
         mav.addObject("user",user);
         session.setAttribute("user",user);
         session.setAttribute("loginflag",1);
@@ -104,7 +115,7 @@ public class MainController {
             mav.addObject("loginright",0);
             return error;
         }else{
-            if (user.getUserName().equals(username) && user.getUserPassword().equals(password)){
+            if (user.getUserAccount().equals(username) && user.getUserPassword().equals(password)){
                 mav.addObject("loginright",1);
                 mav.addObject("user",user);
                 mav.addObject("fans",fans);
@@ -128,6 +139,9 @@ public class MainController {
         Integer fans = userService.selectFans(user.getUserId());
         Integer SCs = userService.selectscs(user.getUserId());
         List<SChicken> followsSC = schickenService.selectFollowsSCByUserId(user.getUserId());
+        if (followsSC.get(0).getScId() == null){
+            followsSC = null;
+        }
         mav.addObject("followsSC",followsSC);
         mav.addObject("fans",fans);
         mav.addObject("follows",follows);
@@ -210,11 +224,158 @@ public class MainController {
     public ModelAndView personpageController(){
         ModelAndView mav = new ModelAndView("personpage");
         User user = (User) session.getAttribute("user");
+        User user1 = userService.selectByUserName(user.getUserAccount());
         Integer follows = userService.selectFollows(user.getUserId());
         Integer fans = userService.selectFans(user.getUserId());
+        System.out.println(user1.getScList().size()+" "+user1.getScList().get(0).getScId());
+        if(user1.getScList().get(0).getScId() == null){
+            user1.setScList(null);
+        }
+        mav.addObject("user",user1);
+        mav.addObject("fans",fans);
+        mav.addObject("follows",follows);
+        return mav;
+    }
+
+    @RequestMapping(value = "/updateuser.do",method = RequestMethod.POST)
+    public String updateuserController(HttpServletRequest request,String realname,
+                                       String introduce,@DateTimeFormat(pattern = "yyyy-MM-dd") Date birthday) throws IOException {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        MultipartFile file = multipartRequest.getFile("headshot");
+        if (!file.isEmpty()){
+            String path = "D:\\Better\\IDEA\\ssm\\src\\main\\webapp\\resources\\img";
+            String fileName = file.getOriginalFilename();
+            File dir = new File(path, fileName);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            file.transferTo(dir);
+            User user = (User) session.getAttribute("user");
+            Userinfo userinfo = new Userinfo();
+            userinfo.setUserinfoBirth(birthday);
+            userinfo.setUserinfoStatement(introduce);
+            userinfo.setUserinfoId(user.getUserId());
+            userinfo.setUserinfoPicurl("resources/img/"+fileName);
+            userinfo.setUserinfoVip((byte) 0);
+            userinfoService.updateUserinfo(userinfo);
+            user.setUserRealname(realname);
+            userService.updateByPrimaryKeySelective(user);
+        }else{
+            User user = (User) session.getAttribute("user");
+            Userinfo userinfo = new Userinfo();
+            userinfo.setUserinfoBirth(birthday);
+            userinfo.setUserinfoStatement(introduce);
+            userinfo.setUserinfoId(user.getUserId());
+            userinfo.setUserinfoVip((byte) 0);
+            userinfoService.updateUserinfo(userinfo);
+            user.setUserRealname(realname);
+            userService.updateByPrimaryKeySelective(user);
+        }
+        return "redirect:personpage.do";
+    }
+
+    @RequestMapping(value = "/fansfollow.do",method = RequestMethod.GET)
+    public ModelAndView fansfollowController(){
+        ModelAndView mav = new ModelAndView("fanandfollows");
+        User user = (User) session.getAttribute("user");
+        Integer follows = userService.selectFollows(user.getUserId());
+        Integer fans = userService.selectFans(user.getUserId());
+        List<User> fansList = userService.findfansListByUserId(user.getUserId());
+        List<User> followsList = userService.findfollowsListByUserId(user.getUserId());
+        mav.addObject("fansList",fansList);
+        mav.addObject("followsList",followsList);
         mav.addObject("user",user);
         mav.addObject("fans",fans);
         mav.addObject("follows",follows);
         return mav;
+    }
+
+    @RequestMapping(value = "/notfollow.do",method = RequestMethod.GET)
+    public String notfollowController(String userId,String followerId){
+        int userid = Integer.parseInt(userId);
+        int followsid = Integer.parseInt(followerId);
+        relationService.deleteByUserIdAndFollowerId(userid, followsid);
+        return "redirect:fansfollow.do";
+    }
+
+    @RequestMapping(value = "/deletesc.do",method = RequestMethod.GET)
+    public String deletescController(String scId){
+        if (schickenService.selectByPK(Integer.parseInt(scId)).getPicture() != null){
+            pictureService.deleteByScPk(Integer.parseInt(scId));
+        }
+        if (schickenService.selectByPK(Integer.parseInt(scId)).getScComments() != 0){
+            commentsService.deleteByScId(Integer.parseInt(scId));
+        }
+        schickenService.deletscByPk(Integer.parseInt(scId));
+        return "redirect:personpage.do";
+    }
+
+    @RequestMapping(value = "/searchUser.do",method = RequestMethod.GET)
+    public ModelAndView searchUserController(String what2search){
+        ModelAndView mav = new ModelAndView("searchUser");
+        User user = (User) session.getAttribute("user");
+        List<User> userList = userService.selectByAnyName(what2search,user.getUserId());
+        mav.addObject("userList",userList);
+        mav.addObject("user",user);
+        return mav;
+    }
+
+    @RequestMapping(value = "/addrelation.do",method = RequestMethod.GET)
+    public String addrelationController(String userId,String searchUserId){
+        Relation relation = new Relation();
+        relation.setRelatedUserId(Integer.parseInt(userId));
+        relation.setRelationUserId(Integer.parseInt(searchUserId));
+        relationService.insertRelation(relation);
+        return "redirect:searchUser.do";
+    }
+
+    @RequestMapping(value = "/adminlogin.do",method = RequestMethod.POST)
+    public ModelAndView adminloginController(String account,String psw){
+        ModelAndView mav = new ModelAndView("admin");
+        ModelAndView error = new ModelAndView("hello");
+        if (account.equals("admin") && psw.equals("admin")){
+            List<User> allUser = userService.AllUser();
+            Admin admin = adminService.selectByName(account);
+            mav.addObject("admin",admin);
+            mav.addObject("alluser",allUser);
+            session.setAttribute("admin",admin);
+            return mav;
+        }else{
+            mav.addObject("loginflag",0);
+            return error;
+        }
+    }
+
+    @RequestMapping(value = "/admin.do",method = RequestMethod.GET)
+    public ModelAndView adminController(){
+        ModelAndView mav = new ModelAndView("admin");
+        Admin admin = (Admin) session.getAttribute("admin");
+        mav.addObject("admin",admin);
+        List<User> allUser = userService.AllUser();
+        mav.addObject("alluser",allUser);
+        return mav;
+    }
+
+    @RequestMapping(value = "/deleteUser.do",method = RequestMethod.GET)
+    public String deleteUserController(String userId){
+        int userid = Integer.parseInt(userId);
+        userService.deleteUserById(userid);
+        return "redirect:admin.do";
+    }
+
+    @RequestMapping(value = "/adminlogout.do",method = RequestMethod.GET)
+    public String adminlogoutController(){
+        session.removeAttribute("admin");
+        return "redirect:index.do";
+    }
+
+    @RequestMapping(value = "/becomevip.do",method = RequestMethod.GET)
+    public String becomeVIPController(String userId){
+        int userid = Integer.parseInt(userId);
+        Userinfo userinfo = new Userinfo();
+        userinfo.setUserinfoVip((byte) 1);
+        userinfo.setUserinfoId(userid);
+        userinfoService.updateUserinfo(userinfo);
+        return "redirect:mainpage.do";
     }
 }

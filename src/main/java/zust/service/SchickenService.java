@@ -15,4 +15,5 @@ public interface SchickenService {
     public void insertSC(SChicken sc);
     public  List<SChicken> selectFollowsSCByUserId(int userId);
     public void updateSchicken(SChicken sChicken);
+    void deletscByPk(int scId);
 }

@@ -57,7 +57,7 @@ public class MainController {
 
     @RequestMapping(value = "/index.do",method = RequestMethod.GET)
     public String welcomeController(){
-        return "talk";
+        return "hello";
     }
 
     @RequestMapping(value = "/register.do",method = RequestMethod.GET)

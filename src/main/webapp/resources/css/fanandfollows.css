@@ -104,7 +104,6 @@ input.b{
     background-color: white;
 }
 .whiteline ul{
-
     list-style-type: none;
     width: 40%;
     padding: 0px;
@@ -384,4 +383,15 @@ input.c{
     display: inline-block;
     font-size: 16px;
     -webkit-appearance:none;
+}
+.right11{
+    float: left;
+    width: 50%;
+    background-color: red;
+
+}
+.right22{
+    float: right;
+    width: 50%;
+    background-color: blue;
 }

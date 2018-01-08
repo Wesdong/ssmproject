@@ -15,7 +15,20 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
 </head>
+<script>
+    $(function() {
+        $("#toggle").click(function() {
+            $(this).text($("#content").is(":hidden") ? "管理员入口" : "管理员入口");
+            $("#content").slideToggle();
+        });
+    });
+    function displaysendsc() {
+        var sendsc = document.getElementById("content");
+        sendsc.style.display = "none";
+    }
+</script>
 <body>
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 
@@ -49,13 +62,14 @@
     <div id="main">
         <div id="huanying">欢迎来到SChicken：）</div>
         <div id="right1">
+            <button class="adminbutton" id="toggle">管理员入口</button>
             <form method="post" action="/ssm/login.do" >
                 <p><input type="text" name="username" placeholder="手机、邮箱或用户名" class="a"></p>
                 <p><input type="password" name="password" placeholder="密码" class="b"></p>
                 <input type="checkbox" class="c"><font style="font-family: 微软雅黑" class="f">记住我</font>
                 <input type="submit" value="登录" class="button1">
             </form>
-            <button>管理员入口</button>
+
         </div>
         <div id="right2">
             <form method="get" action="/ssm/register.do" >
@@ -69,11 +83,14 @@
         </div>
     </div>
 </div>
-<form method="post" action="/ssm/adminlogin.do">
-    <p><input type="text" name="account" placeholder="用户名" class="a"></p>
-    <p><input type="password" name="psw" placeholder="密码" class="b"></p>
-    <input type="submit" value="登录" class="button1">
-</form>
+<div id="content" style="display: none;">
+        <button onclick="displaysendsc()" class="adminbutton">退出</button>
+        <form method="post" action="/ssm/adminlogin.do">
+            <p><input type="text" name="account" placeholder="用户名" class="a"></p>
+            <p><input type="password" name="psw" placeholder="密码" class="b"></p>
+            <input type="submit" value="登录" class="button1">
+        </form>
+</div>
 <p class="english">@SChicken</p>
 </body>
 </html>

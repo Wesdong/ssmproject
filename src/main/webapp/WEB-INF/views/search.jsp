@@ -36,7 +36,7 @@
     }
     $(function() {
         $("#toggle").click(function() {
-            $(this).text($("#content").is(":hidden") ? "收起" : "展开");
+            $(this).text($("#content").is(":hidden") ? "comments" : "comments");
             $("#content").slideToggle();
         });
     });
@@ -60,11 +60,13 @@
 </div>
 <div class="wrap">
     <div class="main">
+        <div class="shang">
         <form action="/ssm/searchUser.do" method="get">
-            <p>想要搜索的是用户?</p>
-            <input type="text" name="what2search">
-            <input type="submit" value="搜索">
+            <div class="sousuo">想要搜索的是用户?</div>
+            <input type="text" name="what2search" class="e">
+            <input type="submit" value="搜索" class="f">
         </form>
+        </div>
         <c:forEach var="sc" items="${sclist.list}">
 
             <div class="detail1">
@@ -86,25 +88,28 @@
                 </div>
 
                 <br>
+                <div id="content" style="display: none;">
+                    <p>回复${sc.user.userRealname}</p>
+                    <div>
+                        <c:forEach var="comment" items="${sc.commentsList}">
+                            <p>Schicken${comment.commentsUserId}:${comment.commentsInfo}</p>
+                        </c:forEach>
+                        <div >回复@${sc.user.userName}</div>
+                        <div>
+                            <form action="/ssm/sendcomment.do" method="get">
+                                <input type="text" value="${sc.scId}" name="scid" hidden="hidden">
+                                <input type="text" value="${user.userId}" name="commentuserid" hidden="hidden">
+                                <input type="text" name="commentinfo">
+                                <input type="submit" value="回复">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </c:forEach>
     </div>
     <!--评论区-->
-    <div id="content" style="display: none;">
-        <p>回复${sc.user.userRealname}</p>
-        <div>
-            <c:forEach var="comment" items="${sc.commentsList}">
-                <p>Schicken${comment.commentsUserId}:${comment.commentsInfo}</p>
-            </c:forEach>
-            <p>回复@${sc.user.userName}</p>
-            <form action="/ssm/sendcomment.do" method="get">
-                <input type="text" value="${sc.scId}" name="scid" hidden="hidden">
-                <input type="text" value="${user.userId}" name="commentuserid" hidden="hidden">
-                <input type="text" name="commentinfo">
-                <input type="submit" value="回复">
-            </form>
-        </div>
-    </div>
+
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

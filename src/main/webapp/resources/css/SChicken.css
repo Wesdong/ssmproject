@@ -100,7 +100,7 @@ input.a{
     height: 45px;
     width: 94%;
     margin-left: 3%;
-    margin-top: 10px;
+    margin-top: 40px;
     border-radius: 8px;
     font-size: 20px;
     font-family: 微软雅黑;
@@ -194,33 +194,3 @@ input.button2{
     left: 13%;
     font-family: 微软雅黑;
 }
-.english{
-    position: absolute;
-    left: 45%;
-    bottom: 6%;
-    color: white;
-}
-.adminbutton{
-    float: right;
-    margin-right: 4%;
-    margin-top: 3%;
-    border-radius: 10px;
-    background-color: #66ccff;
-    border-color: #66ccff;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    -webkit-appearance:none;
-}
-#content{
-    margin-left: 60%;
-    height: 223px;
-    width: 30%;
-    background-color: white;
-    position: absolute;
-    top: 19%;
-    right: 12%;
-}
-
